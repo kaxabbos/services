@@ -2,8 +2,8 @@
 
 /back/.idea
 /back/target
-/back/src/resources/img/category/
-/back/src/resources/img/product/
+/back/src/main/resources/img/category/
+/back/src/main/resources/img/product/
 
 /front/.angular
 /front/.idea
