@@ -1,0 +1,32 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Категории</h1>
+
+	<div *ngIf="message" class="d-flex justify-content-center">
+		<div class="alert alert-warning mb-5 w-50" role="alert">
+			<p class="fs-4 m-0 text-center">{{ message }}</p>
+		</div>
+	</div>
+
+	<form (ngSubmit)="addCategory()" [formGroup]="category" class="row align-items-center mb-5" data-aos="zoom-in">
+		<div class="col"></div>
+		<div class="col">
+			<input class="form-control" formControlName="name" placeholder="Наименование" type="text">
+		</div>
+		<div *ngIf="!category.invalid" class="col-auto" data-aos="zoom-in">
+			<button class="btn btn-primary" type="submit">Добавить</button>
+		</div>
+		<div class="col"></div>
+	</form>
+
+	<div class="row justify-content-center">
+		@for (i of getSortedCategories(); track i.id) {
+			<div class="col-3">
+				<app-category-card [category]="i"></app-category-card>
+			</div>
+		} @empty {
+			<p class="fs-3 text-center">Категории еще не добавлены</p>
+		}
+	</div>
+
+</div>

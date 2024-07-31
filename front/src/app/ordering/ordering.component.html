@@ -1,0 +1,31 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Заказы</h1>
+
+	@for (i of details; track i.id) {
+		<app-detail-card [detail]="i"></app-detail-card>
+	}
+
+	<div *ngIf="details.length !== 0" data-aos="fade-up">
+		<hr>
+		<div class="row align-items-center">
+			<div class="col"></div>
+			<div class="col">
+				<input [(ngModel)]="date" class="form-control" type="date">
+			</div>
+			<div class="col-auto">
+				<button (click)="orderingAdd()" *ngIf="date !== null" class="btn btn-primary" data-aos="zoom-in"
+						type="button">Оформить
+				</button>
+			</div>
+			<div class="col"></div>
+		</div>
+		<hr>
+	</div>
+
+	@for (i of getSortedOrderings(); track i.id) {
+		<app-ordering-card [ordering]="i"></app-ordering-card>
+	}
+
+
+</div>

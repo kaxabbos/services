@@ -1,0 +1,49 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">{{ product.name }}</h1>
+
+	<div *ngIf="message" class="d-flex justify-content-center" data-aos="zoom-in">
+		<div class="alert alert-warning mb-5 w-50" role="alert">
+			<p class="fs-4 m-0 text-center">{{ message }}</p>
+		</div>
+	</div>
+
+	<div class="row mb-5" data-aos="zoom-in">
+		<div class="col"></div>
+		<div class="col">
+			<a (click)="router.navigate(['/products'])" class="btn btn-secondary w-100">Назад</a>
+		</div>
+		<div *ngIf="getRole() === 'MANAGER'" class="col">
+			<a (click)="updatePage()" class="btn btn-success w-100">Обновить</a>
+		</div>
+		<div *ngIf="getRole() === 'MANAGER'" class="col">
+			<a (click)="deleteProduct()" class="btn btn-danger w-100">Удалить</a>
+		</div>
+		<div class="col"></div>
+	</div>
+
+	<div class="row" data-aos="fade-up">
+		<div class="col">
+			<input (change)="updateImg($event)" *ngIf="getRole() === 'MANAGER'" accept="image/*" class="form-control mb-2"
+				   type="file">
+			<img [src]="product.img" alt="img" class="w-100 rounded shadow">
+		</div>
+		<div class="col">
+			<div *ngIf="getRole() === 'USER'" class="row align-items-center mb-3">
+				<div class="col">
+					<input [(ngModel)]="count" class="form-control" min="1" placeholder="Введите количество" step="1"
+						   type="number">
+				</div>
+				<div class="col-auto">
+					<button (click)="detail()" *ngIf="count>0" class="btn btn-primary" data-aos="zoom-in" type="button">
+						Добавить
+					</button>
+				</div>
+			</div>
+			<p class="fs-4 m-0">{{ 'Категория: ' + product.categoryName }}</p>
+			<p class="fs-4 m-0">{{ 'Цена: ' + product.price }}</p>
+			<p class="fs-4 m-0">{{ 'Описание: ' + product.description }}</p>
+		</div>
+	</div>
+
+</div>

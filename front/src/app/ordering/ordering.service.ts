@@ -1,0 +1,124 @@
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {BehaviorSubject} from "rxjs";
+
+@Injectable({
+	providedIn: 'root'
+})
+export class OrderingService {
+
+	orderingSubject = new BehaviorSubject<any>({
+		orderings: [],
+		details: []
+	})
+
+	private backendUrl = 'http://localhost:8080';
+	private headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+	});
+	private headersMultipartWithToken = new HttpHeaders({
+		'enctype': 'multipart/form-data',
+		'Authorization': 'Bearer ' + localStorage.getItem("token"),
+	});
+	private headersWithToken = new HttpHeaders({
+		'Content-Type': 'application/json',
+		'Authorization': 'Bearer ' + localStorage.getItem("token"),
+	});
+
+	constructor(
+		private http: HttpClient
+	) {
+	}
+
+	getOrderings() {
+		this.http.get(
+			this.backendUrl + '/orderings',
+			{headers: this.headersWithToken}
+		).subscribe({
+			next: ((res: any) => {
+				this.orderingSubject.next({
+					...this.orderingSubject.value,
+					orderings: res.data,
+				})
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
+		});
+	}
+
+	addOrdering(date: any) {
+		this.http.post(
+			this.backendUrl + '/orderings',
+			"",
+			{
+				headers: this.headersWithToken,
+				params: new HttpParams().appendAll({
+					date: date,
+				})
+			}
+		).subscribe({
+			next: ((res: any) => {
+				this.getOrderings()
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
+		});
+	}
+
+	done(id: any) {
+		this.http.get(
+			this.backendUrl + `/orderings/${id}/done`,
+			{headers: this.headersWithToken,}
+		).subscribe({
+			next: ((res: any) => {
+				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
+				this.orderingSubject.next({
+					...this.orderingSubject.value,
+					orderings: orderings
+				})
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
+		});
+	}
+
+	delivery(id: any) {
+		this.http.get(
+			this.backendUrl + `/orderings/${id}/delivery`,
+			{headers: this.headersWithToken,}
+		).subscribe({
+			next: ((res: any) => {
+				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
+				this.orderingSubject.next({
+					...this.orderingSubject.value,
+					orderings: orderings
+				})
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
+		});
+	}
+
+	delivered(id: any) {
+		this.http.get(
+			this.backendUrl + `/orderings/${id}/delivered`,
+			{headers: this.headersWithToken,}
+		).subscribe({
+			next: ((res: any) => {
+				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
+				this.orderingSubject.next({
+					...this.orderingSubject.value,
+					orderings: orderings
+				})
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
+		});
+	}
+
+}

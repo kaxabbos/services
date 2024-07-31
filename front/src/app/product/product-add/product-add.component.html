@@ -1,0 +1,47 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Добавить</h1>
+
+	<div *ngIf="message" class="d-flex justify-content-center">
+		<div class="alert alert-warning mb-5 w-50" role="alert">
+			<p class="fs-4 m-0 text-center">{{ message }}</p>
+		</div>
+	</div>
+
+	<div class="row mb-5" data-aos="zoom-in">
+		<div class="col"></div>
+		<div class="col">
+			<a (click)="router.navigate(['/products'])" class="btn btn-secondary w-100">Назад</a>
+		</div>
+		<div class="col"></div>
+	</div>
+
+	<form (ngSubmit)="addProduct()" [formGroup]="productFormGroup" class="row" data-aos="zoom-in-up">
+		<div class="col-4 mb-2">
+			<p class="fs-4 m-0">Наименование</p>
+			<input class="form-control" formControlName="name" type="text">
+		</div>
+		<div class="col-4 mb-2">
+			<p class="fs-4 m-0">Цена</p>
+			<input class="form-control" formControlName="price" min="0.01" step="0.01" type="number">
+		</div>
+		<div class="col-4 mb-2">
+			<p class="fs-4 m-0">Категория</p>
+			<select class="form-select" formControlName="categoryId">
+				@for (c of categories; track c.id) {
+					<option [value]="c.id" [label]="c.name"></option>
+				} @empty {
+					<option disabled selected>Категории еще не добавлены</option>
+				}
+			</select>
+		</div>
+		<div class="col-12 mb-2">
+			<p class="fs-4 m-0">Описание</p>
+			<textarea class="form-control" formControlName="description"></textarea>
+		</div>
+		<div *ngIf="!productFormGroup.invalid" class="col-12" data-aos="zoom-in">
+			<button class="btn btn-primary w-100" type="submit">Добавить</button>
+		</div>
+	</form>
+
+</div>

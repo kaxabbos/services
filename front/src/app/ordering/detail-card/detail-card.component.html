@@ -1,0 +1,16 @@
+<div class="row mb-2 p-2 rounded shadow border align-items-center text-center" data-aos="fade-up">
+
+	<div class="col">
+		<a (click)="productPage()" role="button">
+			<p class="fs-5 m-0">{{ detail.productName }}</p>
+		</a>
+	</div>
+	<div class="col"><p class="fs-5 m-0">{{ 'Цена: ' + (price() | number : '1.2-2') }}</p></div>
+	<div class="col">
+		<input (change)="updateDetail()" [(ngModel)]="detail.count" class="form-control" min="1" step="1" type="number">
+	</div>
+	<div class="col-auto">
+		<a (click)="deleteDetail()" class="btn btn-danger" role="button">Удалить</a>
+	</div>
+
+</div>

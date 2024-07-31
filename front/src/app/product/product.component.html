@@ -1,0 +1,47 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Услуги/Товары</h1>
+
+	<div *ngIf="getRole() === 'MANAGER'" class="row mb-5" data-aos="zoom-in">
+		<div class="col"></div>
+		<div class="col">
+			<a (click)="router.navigate(['/productAdd'])" class="btn btn-primary w-100">Добавить</a>
+		</div>
+		<div class="col"></div>
+	</div>
+
+	<div class="mb-5 row">
+		<div class="col">
+			<input [(ngModel)]="name" class="form-control" name="name" placeholder="Наименование" type="text">
+		</div>
+		<div class="col">
+			<select [(ngModel)]="categoryId" class="form-select" name="categoryId">
+				<option value="0">Все</option>
+				@for (c of categories; track c.id) {
+					<option [value]="c.id" [label]="c.name"></option>
+				}
+			</select>
+		</div>
+		<div class="col">
+			<select [(ngModel)]="filter" class="form-select" name="filter">
+				<option value="0">Сперва новые</option>
+				<option value="1">Сперва старые</option>
+				<option value="2">По возрастанию цены</option>
+				<option value="3">По убыванию цены</option>
+				<option value="4">От А до Я</option>
+				<option value="5">От Я до А</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		@for (i of getProducts(); track i.id) {
+			<div class="col-4">
+				<app-product-card [product]="i"></app-product-card>
+			</div>
+		} @empty {
+			<p class="text-center fs-3">Услуги/Товары еще не добавлены</p>
+		}
+	</div>
+
+</div>

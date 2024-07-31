@@ -1,0 +1,33 @@
+<div class="shadow rounded border p-2 row mb-3 fs-5 align-items-center text-center" data-aos="fade-up">
+	<div *ngIf="getRole() === 'MANAGER'" class="col"><p class="m-0">{{ 'Заказчик: ' + ordering.ownerName }}</p></div>
+	<div class="col"><p class="m-0">{{ 'Дата: ' + ordering.date }}</p></div>
+	<div class="col"><p class="m-0">{{ 'Цена: ' + ordering.price }}</p></div>
+	<div class="col"><p class="m-0">{{ 'Статус: ' + ordering.statusName }}</p></div>
+	<div *ngIf="ordering.status === 'WAITING' && getRole() === 'MANAGER'" class="col-auto">
+		<a (click)="done()" class="btn btn-primary" role="button">Подтвердить</a>
+	</div>
+	<div *ngIf="ordering.status === 'DONE' && getRole() === 'MANAGER'" class="col-auto">
+		<a (click)="delivery()" class="btn btn-primary" role="button">Отправить</a>
+	</div>
+	<div *ngIf="ordering.status === 'DELIVERY' && getRole() === 'USER'" class="col-auto">
+		<a (click)="delivered()" class="btn btn-primary" role="button">Получить</a>
+	</div>
+	<div class="col-auto">
+		<a aria-controls="collapseExample" aria-expanded="false" class="btn btn-primary" data-bs-toggle="collapse"
+		   href="{{'#collapse' + ordering.id}}" role="button">
+			Подробнее
+		</a>
+	</div>
+</div>
+
+<div class="collapse mb-3" id="{{'collapse' + ordering.id}}">
+	<div class="card card-body shadow fs-5">
+		@for (d of ordering.details; track d.id) {
+			<div class="row text-center">
+				<div class="col"><p class="m-0">{{ d.productName }}</p></div>
+				<div class="col"><p class="m-0">{{ 'Количество: ' + d.count }}</p></div>
+				<div class="col"><p class="m-0">{{ 'Цена: ' + (d.price | number : '1.2-2') }}</p></div>
+			</div>
+		}
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<div class="card shadow mb-3" data-aos="fade-up">
+	<div class="card-header">
+		<img [src]="product.img" alt="img" class="rounded w-100 object-fit-cover" style="height: 250px">
+	</div>
+	<div class="card-body">
+		<p class="fs-4 m-0 text-center">{{ product.name + ' - ' + product.id }}</p>
+		<p class="fs-4 m-0">{{ 'Категория: ' + product.categoryName }}</p>
+		<p class="fs-4 m-0">{{ 'Цена: ' + product.price }}</p>
+	</div>
+	<div class="card-footer">
+		<a (click)="productPage()" class="btn btn-primary w-100">Подробнее</a>
+	</div>
+</div>
