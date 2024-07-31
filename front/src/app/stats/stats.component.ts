@@ -30,6 +30,8 @@ export class StatsComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login']);
 	}
 

@@ -56,12 +56,14 @@ export class AuthService {
 			next: ((res) => {
 				localStorage.setItem("id", res.data.id);
 				localStorage.setItem("role", res.data.role);
+				console.log(localStorage)
 			}),
 			error: ((error) => {
 				console.log("error", error);
 				localStorage.setItem("id", '0');
 				localStorage.setItem("role", 'NOT');
 				localStorage.setItem("token", '');
+				console.log(localStorage)
 			})
 		});
 	}

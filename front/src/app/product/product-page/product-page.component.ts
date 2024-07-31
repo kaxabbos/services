@@ -29,6 +29,8 @@ export class ProductPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['productId'];

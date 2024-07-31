@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FooterComponent} from "./footer/footer.component";
 import {NavComponent} from "./nav/nav.component";
 import {NgIf} from "@angular/common";
-import {AuthService} from "./auth/auth.service";
 
 @Component({
 	selector: 'app-root',
@@ -17,21 +16,6 @@ import {AuthService} from "./auth/auth.service";
 	templateUrl: './app.component.html',
 })
 
-export class AppComponent implements OnInit {
-	constructor(
-		public authService: AuthService,
-	) {
-	}
-
-	ngOnInit(): void {
-		this.authService.getUserProfile();
-		// if (localStorage.getItem('refresh') === null) {
-		// 	localStorage.setItem('refresh', '1');
-		// 	window.location.reload();
-		// } else if (localStorage.getItem('refresh') === '0') {
-		// 	localStorage.setItem('refresh', '1');
-		// 	window.location.reload();
-		// }
-	}
+export class AppComponent {
 
 }

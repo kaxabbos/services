@@ -32,6 +32,8 @@ export class UserComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login'])
 
 		this.userService.userSubject.subscribe(value => {

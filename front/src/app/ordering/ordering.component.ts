@@ -43,6 +43,8 @@ export class OrderingComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.getRole() !== 'USER' && this.getRole() !== 'MANAGER') this.router.navigate(['/login']);
 
 		this.orderingService.orderingSubject.subscribe(value => {
