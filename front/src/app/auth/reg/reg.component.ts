@@ -37,6 +37,7 @@ export class RegComponent {
 						localStorage.setItem("id", resLogin.data.user.id);
 						localStorage.setItem("role", resLogin.data.user.role);
 						localStorage.setItem("token", resLogin.data.token);
+						localStorage.setItem("locationReload", '0');
 
 						this.router.navigate(['/']);
 					}),

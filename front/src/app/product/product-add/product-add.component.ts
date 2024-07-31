@@ -38,10 +38,14 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;
 		})
+
 		this.categoryService.getCategories();
 	}
 
