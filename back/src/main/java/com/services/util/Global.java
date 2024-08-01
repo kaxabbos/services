@@ -10,8 +10,7 @@ import java.util.UUID;
 
 public class Global {
 
-//    public static final String uploadImg = getUploadImg();
-    public static final String uploadImg = "/application/src/main/resources/img";
+    public static final String uploadImg = getUploadImg();
 
     public static final String ADMIN = "ADMIN";
     public static final String MANAGER = "MANAGER";
@@ -46,13 +45,21 @@ public class Global {
 
     public static String saveFile(MultipartFile file, String path) throws IOException {
         System.out.println(uploadImg);
+        System.out.println(0);
         if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+            System.out.println(1);
             String uuidFile = UUID.randomUUID().toString();
+            System.out.println(2);
             File uploadDir = new File(uploadImg);
+            System.out.println(3);
             if (!uploadDir.exists()) uploadDir.mkdir();
+            System.out.println(4);
             String result = path + "/" + uuidFile + "_" + file.getOriginalFilename();
+            System.out.println(5);
+            System.out.println(uploadImg + "/" + result);
             file.transferTo(new File(uploadImg + "/" + result));
-            return "http://localhost:8080/img" + result;
+            System.out.println(6);
+            return "http://localhost:8080/img/" + result;
         } else throw new IOException();
     }
 

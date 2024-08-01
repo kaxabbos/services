@@ -41,7 +41,7 @@ public class CategoryService {
     public Category updateImg(MultipartFile file, String id) {
         Category old = findById(id);
         try {
-            old.setImg(Global.saveFile(file, "/category"));
+            old.setImg(Global.saveFile(file, "category"));
         } catch (Exception e) {
             throw new BadRequestException("Некорректное изображение");
         }

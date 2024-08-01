@@ -9,7 +9,7 @@ services :
         ports :
         - 5432:5432
     application-server :
-        image :          application-server
+        image :          application-server:latest
         build :
             context :    back
             dockerfile : Dockerfile
