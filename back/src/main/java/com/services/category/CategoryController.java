@@ -75,7 +75,6 @@ public class CategoryController {
     @Secured({ADMIN})
     @PatchMapping("/{categoryId}/img")
     public Result updateImg(@RequestParam MultipartFile file, @PathVariable String categoryId) {
-        System.out.println(categoryId);
         Category updated = service.updateImg(file, categoryId);
         CategoryDto updatedDto = toDtoConverter.convert(updated);
         return new Result(

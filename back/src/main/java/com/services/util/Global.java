@@ -23,9 +23,15 @@ public class Global {
                 dir.setCharAt(j, '/');
             }
         }
-        dir.append("/src/main/resources/img");
+
+//        dir.append("/src/main/resources/img");
+
+        // for Docker
+         dir.append("/BOOT-INF/classes/img");
+
         return dir.toString();
     }
+
 
     public static String getDatetime() {
         return LocalDateTime.now().toString();
@@ -44,16 +50,10 @@ public class Global {
     }
 
     public static String saveFile(MultipartFile file, String path) throws IOException {
-        System.out.println(uploadImg);
-        System.out.println(0);
         if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-            System.out.println(1);
             String uuidFile = UUID.randomUUID().toString();
-            System.out.println(2);
             File uploadDir = new File(uploadImg);
-            System.out.println(3);
             if (!uploadDir.exists()) uploadDir.mkdir();
-            System.out.println(4);
             String result = path + "/" + uuidFile + "_" + file.getOriginalFilename();
             System.out.println(5);
             System.out.println(uploadImg + "/" + result);
