@@ -21,7 +21,7 @@ import {NgForOf, NgIf} from "@angular/common";
 export class ProductAddComponent implements OnInit {
 	productFormGroup = new FormGroup({
 		name: new FormControl("", Validators.required),
-		price: new FormControl("", Validators.required),
+		price: new FormControl("", [Validators.required,Validators.min(0.01)]),
 		description: new FormControl("", Validators.required),
 		categoryId: new FormControl("", Validators.required),
 	});

@@ -1,6 +1,7 @@
 package com.services.product;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public record ProductDto(
         Long id,
@@ -8,7 +9,7 @@ public record ProductDto(
         String name,
         @NotEmpty(message = "description is required")
         String description,
-        @NotEmpty(message = "price is required")
+        @NotNull(message = "price is required")
         float price,
         String img,
         Long categoryId,

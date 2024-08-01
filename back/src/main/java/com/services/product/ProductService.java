@@ -1,6 +1,5 @@
 package com.services.product;
 
-import com.services.appUser.UserService;
 import com.services.category.CategoryService;
 import com.services.detail.Detail;
 import com.services.detail.DetailService;
@@ -21,7 +20,6 @@ public class ProductService {
     private final ProductRepository repository;
     private final CategoryService categoryService;
     private final DetailService detailService;
-    private final UserService userService;
 
     public List<Product> findAll() {
         return repository.findAll();
@@ -51,7 +49,7 @@ public class ProductService {
     public Product updateImg(String productId, MultipartFile file) {
         Product old = findById(productId);
         try {
-            old.setImg(Global.saveFile(file, "/product"));
+            old.setImg(Global.saveFile(file, "product"));
         } catch (IOException e) {
             throw new BadRequestException("Некорректное изображение");
         }
@@ -64,6 +62,9 @@ public class ProductService {
     }
 
     public void detail(String productId, int count) {
+        if (count < 1) {
+            throw new BadRequestException("Некорректное количество");
+        }
         Product product = findById(productId);
         Detail detail = detailService.findByProductId(product.getId());
         if (detail.getProduct() == null) detail.setProduct(product);

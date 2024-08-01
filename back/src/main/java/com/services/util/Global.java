@@ -24,10 +24,13 @@ public class Global {
             }
         }
 
-//        dir.append("/src/main/resources/img");
+        if (dir.toString().startsWith("/application")) {
+            dir.append("/BOOT-INF/classes/img");
+        } else {
+            dir.append("/src/main/resources/img");
+        }
 
-        // for Docker
-         dir.append("/BOOT-INF/classes/img");
+        System.out.println(dir);
 
         return dir.toString();
     }
