@@ -21,7 +21,7 @@ import {NgForOf, NgIf} from "@angular/common";
 export class ProductAddComponent implements OnInit {
 	productFormGroup = new FormGroup({
 		name: new FormControl("", Validators.required),
-		price: new FormControl("", [Validators.required,Validators.min(0.01)]),
+		price: new FormControl("", [Validators.required, Validators.min(0.01)]),
 		description: new FormControl("", Validators.required),
 		categoryId: new FormControl("", Validators.required),
 	});
@@ -38,9 +38,10 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
+		this.authService.getUserProfile().add(() => {
+			if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		});
 
-		if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
 
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;

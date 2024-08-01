@@ -58,6 +58,7 @@ export class ProductComponent implements OnInit {
 		this.productService.productSubject.subscribe(value => {
 			this.products = value.products;
 		})
+
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;
 		})

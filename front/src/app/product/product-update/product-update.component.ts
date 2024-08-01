@@ -40,9 +40,9 @@ export class ProductUpdateComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
-
-		if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		});
 
 		this.activatedRoute.queryParams.subscribe(value => {
 			this.id = value['productId'];
