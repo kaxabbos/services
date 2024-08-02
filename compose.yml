@@ -24,3 +24,11 @@ services :
         - SPRING_DATASOURCE_USERNAME=postgres
         - SPRING_DATASOURCE_PASSWORD=root
         - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    web-server :
+        image :          web-server:latest
+        build :
+            context :    front
+            dockerfile : Dockerfile
+        container_name : web-server
+        ports:
+        -   4200:80
