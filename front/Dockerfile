@@ -1,8 +1,9 @@
 FROM node AS build
-WORKDIR web
-COPY package*.json .
+WORKDIR /usr/local/web
+COPY . /usr/local/web
 RUN npm install
-COPY . .
+RUN npm run build
 
-ENTRYPOINT ["ng", "serve"]
-EXPOSE 4200
+FROM nginx
+COPY --from=build /usr/local/web/dist/front /usr/share/nginx/html
+EXPOSE 80
