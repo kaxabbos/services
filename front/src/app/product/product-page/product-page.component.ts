@@ -36,12 +36,14 @@ export class ProductPageComponent implements OnInit {
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['productId'];
 		});
+
 		this.productService.getProduct(this.id).subscribe({
 			next: ((res: any) => {
 				this.product = res.data;
 			}),
 			error: ((e) => {
 				console.log("error", e);
+
 				this.router.navigate(
 					['/error'],
 					{

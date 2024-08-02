@@ -1,9 +1,9 @@
 FROM node AS build
-WORKDIR /usr/local/web
-COPY . /usr/local/web
+WORKDIR web
+COPY . .
 RUN npm install
-RUN npm run build
+RUN npm run build --prod
 
 FROM nginx
-COPY --from=build /usr/local/web/dist/front /usr/share/nginx/html
-EXPOSE 80
+COPY --from=build web/dist/front/browser /usr/share/nginx/html
+COPY --from=build web/default.conf /etc/nginx/conf.d/default.conf
