@@ -58,7 +58,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (findAll().isEmpty()) {
             user.setRole(Role.ADMIN);
-            user.setNextRole(Role.ADMIN);
         }
         return repository.save(user);
     }
@@ -69,15 +68,10 @@ public class UserService implements UserDetailsService {
         return repository.save(old);
     }
 
-    public AppUser updateRoleAuth(AppUser user) {
-        user.setRole(user.getNextRole());
-        return repository.save(user);
-    }
-
     public AppUser updateRole(String id, String role) {
         AppUser user = findById(id);
         try {
-            user.setNextRole(Role.valueOf(role));
+            user.setRole(Role.valueOf(role));
         } catch (Exception e) {
             throw new BadRequestException("Некорректный выбор роли");
         }
@@ -88,6 +82,5 @@ public class UserService implements UserDetailsService {
         AppUser user = findById(userId);
         repository.deleteById(user.getId());
     }
-
 
 }

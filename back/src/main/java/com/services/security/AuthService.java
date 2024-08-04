@@ -24,7 +24,6 @@ public class AuthService {
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
 
         AppUser user = principal.user();
-        user = userService.updateRoleAuth(user);
         UserDto userDto = userToUserDtoConverter.convert(user);
 
         String token = jwtProvider.createToken(authentication);
