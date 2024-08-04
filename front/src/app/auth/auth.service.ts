@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../global.service";
 
@@ -43,19 +43,12 @@ export class AuthService {
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {
+				localStorage.setItem('role',res.data.role);
 			}),
-			error: ((error) => {
+			error: (() => {
 				localStorage.clear();
 			})
 		});
-	}
-
-	getId() {
-		return localStorage.getItem('id') !== null ? Number(localStorage.getItem('id')) : 0;
-	}
-
-	getRole() {
-		return localStorage.getItem("role") !== null ? localStorage.getItem("role") : 'NOT';
 	}
 
 	logout() {

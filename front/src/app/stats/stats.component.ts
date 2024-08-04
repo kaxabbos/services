@@ -7,6 +7,7 @@ import {StatsCategoryComponent} from "./stats-category/stats-category.component"
 import {FormsModule} from "@angular/forms";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-stats',
@@ -26,11 +27,14 @@ export class StatsComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit(): void {
-		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.global.getRole() !== 'ADMIN') this.router.navigate(['/login']);
+		})
 	}
 
 	generatePDF() {

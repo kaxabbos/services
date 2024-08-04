@@ -5,6 +5,7 @@ import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-product-add',
@@ -34,11 +35,14 @@ export class ProductAddComponent implements OnInit {
 		private authService: AuthService,
 		private productService: ProductsService,
 		private categoryService: CategoryService,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit(): void {
-		if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.global.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		})
 
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;

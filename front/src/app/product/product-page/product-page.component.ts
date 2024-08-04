@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../products.service";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-product-page',
@@ -25,11 +26,14 @@ export class ProductPageComponent implements OnInit {
 		private authService: AuthService,
 		private activatedRoute: ActivatedRoute,
 		private productService: ProductsService,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit(): void {
-		if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.getRole() === 'NOT') this.router.navigate(['/login']);
+		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['productId'];
@@ -58,7 +62,7 @@ export class ProductPageComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 
@@ -83,7 +87,7 @@ export class ProductPageComponent implements OnInit {
 
 	detail() {
 		this.productService.detail(this.id, this.count).subscribe({
-			next: ((res: any) => {
+			next: (() => {
 				this.message = 'Успешно добавлено к заказу';
 			}),
 			error: ((e) => {
@@ -95,7 +99,7 @@ export class ProductPageComponent implements OnInit {
 
 	deleteProduct() {
 		this.productService.deleteProduct(this.id).subscribe({
-			next: ((res: any) => {
+			next: (() => {
 				this.router.navigate(['/products']);
 			}),
 			error: ((e) => {

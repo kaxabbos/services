@@ -6,6 +6,7 @@ import {ProductCardComponent} from "./product-card/product-card.component";
 import {NgIf} from "@angular/common";
 import {CategoryService} from "../category/category.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-product',
@@ -30,6 +31,7 @@ export class ProductComponent implements OnInit {
 		private productService: ProductsService,
 		private authService: AuthService,
 		private categoryService: CategoryService,
+		private global: GlobalService,
 	) {
 	}
 
@@ -53,6 +55,8 @@ export class ProductComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		this.productService.productSubject.subscribe(value => {
 			this.products = value.products;
 		})
@@ -66,7 +70,7 @@ export class ProductComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 }

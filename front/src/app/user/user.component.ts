@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
 import {EnumService} from "../enum.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-user',
@@ -28,11 +29,14 @@ export class UserComponent implements OnInit {
 		private authService: AuthService,
 		private enumService: EnumService,
 		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit() {
-		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login'])
+		this.authService.getUserProfile().add(() => {
+			if (this.global.getRole() !== 'ADMIN') this.router.navigate(['/login'])
+		})
 
 		this.userService.userSubject.subscribe(value => {
 			this.users = value.users;
@@ -50,7 +54,7 @@ export class UserComponent implements OnInit {
 		});
 	}
 
-	getId() {
-		return this.authService.getId();
+	getUserId() {
+		return this.global.getUserId();
 	}
 }

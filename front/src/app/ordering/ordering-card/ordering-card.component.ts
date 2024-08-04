@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {AuthService} from "../../auth/auth.service";
 import {DecimalPipe, NgIf} from "@angular/common";
 import {OrderingService} from "../ordering.service";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-ordering-card',
@@ -17,13 +17,13 @@ export class OrderingCardComponent {
 	@Input() ordering: any;
 
 	constructor(
-		private authService: AuthService,
 		private orderingService: OrderingService,
+		private global: GlobalService,
 	) {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	done() {

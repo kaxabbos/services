@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {DetailService} from "./detail.service";
 import {FormsModule} from "@angular/forms";
 import {OrderingCardComponent} from "./ordering-card/ordering-card.component";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-ordering',
@@ -30,7 +31,8 @@ export class OrderingComponent implements OnInit {
 		private orderingService: OrderingService,
 		private detailService: DetailService,
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
@@ -43,7 +45,9 @@ export class OrderingComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.getRole() !== 'USER' && this.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.getRole() !== 'USER' && this.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		})
 
 		this.orderingService.orderingSubject.subscribe(value => {
 			this.orderings = value.orderings;
@@ -60,7 +64,7 @@ export class OrderingComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	orderingAdd() {

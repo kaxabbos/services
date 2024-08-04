@@ -5,6 +5,7 @@ import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-product-update',
@@ -36,11 +37,14 @@ export class ProductUpdateComponent implements OnInit {
 		private authService: AuthService,
 		private productService: ProductsService,
 		private categoryService: CategoryService,
+		private global: GlobalService
 	) {
 	}
 
 	ngOnInit(): void {
-		if (this.authService.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.global.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+		})
 
 		this.activatedRoute.queryParams.subscribe(value => {
 			this.id = value['productId'];

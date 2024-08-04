@@ -6,6 +6,7 @@ import {UserCardComponent} from "../user/user-card/user-card.component";
 import {CategoryCardComponent} from "./category-card/category-card.component";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-category',
@@ -31,6 +32,7 @@ export class CategoryComponent implements OnInit {
 		private authService: AuthService,
 		private categoryService: CategoryService,
 		private router: Router,
+		private global: GlobalService
 	) {
 	}
 
@@ -43,7 +45,9 @@ export class CategoryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login'])
+		this.authService.getUserProfile().add(() => {
+			if (this.global.getRole() !== 'ADMIN') this.router.navigate(['/login'])
+		})
 
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;

@@ -4,7 +4,7 @@
 
 	<div class="row justify-content-center">
 		@for (i of getSortedUsers(); track i.id) {
-			<div *ngIf="i.id !== getId()">
+			<div *ngIf="i.id !== getUserId()">
 				<app-user-card [user]="i"></app-user-card>
 			</div>
 		} @empty {
