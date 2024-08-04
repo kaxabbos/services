@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -8,28 +9,16 @@ import {Router} from "@angular/router";
 
 export class AuthService {
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-
 	constructor(
 		private http: HttpClient,
-		private router: Router
+		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	login(user: any) {
 		return this.http.post<any>(
-			this.backendUrl + '/users/login',
+			this.global.getBackendUrl() + '/users/login',
 			"",
 			{
 				headers: {
@@ -42,16 +31,16 @@ export class AuthService {
 
 	reg(user: any) {
 		return this.http.post<any>(
-			this.backendUrl + '/users',
+			this.global.getBackendUrl() + '/users',
 			user,
-			{headers: this.headers}
+			{headers: this.global.getHeaders()}
 		)
 	}
 
 	getUserProfile() {
 		return this.http.get<any>(
-			this.backendUrl + '/users/profile',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/users/profile',
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {
 			}),

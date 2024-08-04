@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -10,28 +11,16 @@ export class DetailService {
 		details: []
 	})
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private global: GlobalService
 	) {
 	}
 
 	getDetails() {
 		return this.http.get(
-			this.backendUrl + '/details',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/details',
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
 				this.detailSubject.next({
@@ -47,10 +36,10 @@ export class DetailService {
 
 	updateDetail(id: any, count: any) {
 		return this.http.patch(
-			this.backendUrl + `/details/${id}`,
+			this.global.getBackendUrl() + `/details/${id}`,
 			"",
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({count: count})
 			}
 		);
@@ -58,8 +47,8 @@ export class DetailService {
 
 	deleteDetail(id: any) {
 		return this.http.delete(
-			this.backendUrl + `/details/${id}`,
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + `/details/${id}`,
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {
 				let current = this.detailSubject.value;

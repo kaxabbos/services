@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -10,28 +11,17 @@ export class CategoryService {
 	categorySubject = new BehaviorSubject<any>({
 		categories: [],
 	})
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private global: GlobalService,
 	) {
 	}
 
 	getCategories() {
 		this.http.get(
-			this.backendUrl + '/categories',
-			{headers: this.headers},
+			this.global.getBackendUrl() + '/categories',
+			{headers: this.global.getHeaders()},
 		).subscribe({
 			next: ((res: any) => {
 				this.categorySubject.next({
@@ -48,9 +38,9 @@ export class CategoryService {
 	addCategory(category: any) {
 		let body = JSON.stringify(category);
 		this.http.post(
-			this.backendUrl + '/categories',
+			this.global.getBackendUrl() + '/categories',
 			body,
-			{headers: this.headersWithToken},
+			{headers: this.global.getHeadersWithToken()},
 		).subscribe({
 			next: ((res: any) => {
 				this.categorySubject.next({
@@ -66,9 +56,9 @@ export class CategoryService {
 
 	updateCategory(category: any) {
 		return this.http.put(
-			this.backendUrl + `/categories/${category.id}`,
+			this.global.getBackendUrl() + `/categories/${category.id}`,
 			category,
-			{headers: this.headersWithToken},
+			{headers: this.global.getHeadersWithToken()},
 		).subscribe({
 			next: ((res: any) => {
 				const current = this.categorySubject.value;
@@ -88,16 +78,16 @@ export class CategoryService {
 		const formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.backendUrl + `/categories/${category.id}/img`,
+			this.global.getBackendUrl() + `/categories/${category.id}/img`,
 			formData,
-			{headers: this.headersMultipartWithToken},
+			{headers: this.global.getHeadersMultipartWithToken()},
 		);
 	}
 
 	deleteCategory(id: any) {
 		return this.http.delete(
-			this.backendUrl + `/categories/${id}`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/categories/${id}`,
+			{headers: this.global.getHeadersWithToken()},
 		).subscribe({
 			next: ((res: any) => {
 				const current = this.categorySubject.value;

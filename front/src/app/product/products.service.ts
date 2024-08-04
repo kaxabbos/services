@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -11,30 +12,19 @@ export class ProductsService {
 	productSubject = new BehaviorSubject<any>({
 		products: [],
 	})
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private global: GlobalService
 	) {
 	}
 
 	detail(id: any, count: any) {
 		return this.http.post(
-			this.backendUrl + `/products/${id}/detail`,
+			this.global.getBackendUrl() + `/products/${id}/detail`,
 			"",
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({count: count})
 			},
 		);
@@ -42,8 +32,8 @@ export class ProductsService {
 
 	getProducts() {
 		this.http.get(
-			this.backendUrl + '/products',
-			{headers: this.headers}
+			this.global.getBackendUrl() + '/products',
+			{headers: this.global.getHeaders()}
 		).subscribe({
 			next: ((res: any) => {
 				this.productSubject.next({
@@ -59,18 +49,18 @@ export class ProductsService {
 
 	getProduct(id: any) {
 		return this.http.get(
-			this.backendUrl + `/products/${id}`,
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + `/products/${id}`,
+			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 
 	addProduct(product: any) {
 		let body = JSON.stringify(product);
 		return this.http.post(
-			this.backendUrl + '/products',
+			this.global.getBackendUrl() + '/products',
 			body,
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -81,10 +71,10 @@ export class ProductsService {
 	updateProduct(product: any, id: any) {
 		let body = JSON.stringify(product);
 		return this.http.put(
-			this.backendUrl + `/products/${id}`,
+			this.global.getBackendUrl() + `/products/${id}`,
 			body,
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -96,18 +86,18 @@ export class ProductsService {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.backendUrl + `/products/${productId}/img`,
+			this.global.getBackendUrl() + `/products/${productId}/img`,
 			formData,
 			{
-				headers: this.headersMultipartWithToken,
+				headers: this.global.getHeadersMultipartWithToken(),
 			}
 		);
 	}
 
 	deleteProduct(productId: any) {
 		return this.http.delete(
-			this.backendUrl + `/products/${productId}`,
-			{headers: this.headersMultipartWithToken}
+			this.global.getBackendUrl() + `/products/${productId}`,
+			{headers: this.global.getHeadersMultipartWithToken()}
 		);
 	}
 }

@@ -22,4 +22,8 @@ export class NavComponent {
 	getRole() {
 		return this.authService.getRole();
 	}
+
+	logout() {
+		this.authService.logout()
+	}
 }

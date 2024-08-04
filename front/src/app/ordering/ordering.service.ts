@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,28 +13,17 @@ export class OrderingService {
 		details: []
 	})
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private global: GlobalService
 	) {
 	}
 
 	getOrderings() {
 		this.http.get(
-			this.backendUrl + '/orderings',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/orderings',
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
 				this.orderingSubject.next({
@@ -49,10 +39,10 @@ export class OrderingService {
 
 	addOrdering(date: any) {
 		this.http.post(
-			this.backendUrl + '/orderings',
+			this.global.getBackendUrl() + '/orderings',
 			"",
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
 					date: date,
 				})
@@ -69,8 +59,8 @@ export class OrderingService {
 
 	done(id: any) {
 		this.http.get(
-			this.backendUrl + `/orderings/${id}/done`,
-			{headers: this.headersWithToken,}
+			this.global.getBackendUrl() + `/orderings/${id}/done`,
+			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
@@ -87,8 +77,8 @@ export class OrderingService {
 
 	delivery(id: any) {
 		this.http.get(
-			this.backendUrl + `/orderings/${id}/delivery`,
-			{headers: this.headersWithToken,}
+			this.global.getBackendUrl() + `/orderings/${id}/delivery`,
+			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
@@ -105,8 +95,8 @@ export class OrderingService {
 
 	delivered(id: any) {
 		this.http.get(
-			this.backendUrl + `/orderings/${id}/delivered`,
-			{headers: this.headersWithToken,}
+			this.global.getBackendUrl() + `/orderings/${id}/delivered`,
+			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
