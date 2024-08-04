@@ -30,8 +30,6 @@ public class Global {
             dir.append("/src/main/resources/img");
         }
 
-        System.out.println(dir);
-
         return dir.toString();
     }
 
@@ -58,10 +56,7 @@ public class Global {
             File uploadDir = new File(uploadImg);
             if (!uploadDir.exists()) uploadDir.mkdir();
             String result = path + "/" + uuidFile + "_" + file.getOriginalFilename();
-            System.out.println(5);
-            System.out.println(uploadImg + "/" + result);
             file.transferTo(new File(uploadImg + "/" + result));
-            System.out.println(6);
             return "http://localhost:8080/img/" + result;
         } else throw new IOException();
     }

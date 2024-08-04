@@ -43,7 +43,6 @@ public class CategoryService {
         try {
             old.setImg(Global.saveFile(file, "category"));
         } catch (Exception e) {
-            System.out.println(e);
             throw new BadRequestException("Некорректное изображение");
         }
         return repository.save(old);
