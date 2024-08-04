@@ -43,9 +43,7 @@ export class CategoryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile().add(() => {
-			if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login'])
-		});
+		if (this.authService.getRole() !== 'ADMIN') this.router.navigate(['/login'])
 
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;

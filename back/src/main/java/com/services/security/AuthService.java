@@ -2,8 +2,9 @@ package com.services.security;
 
 import com.services.appUser.AppUser;
 import com.services.appUser.MyUserPrincipal;
-import com.services.appUser.converter.UserToUserDtoConverter;
 import com.services.appUser.UserDto;
+import com.services.appUser.UserService;
+import com.services.appUser.converter.UserToUserDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ public class AuthService {
 
     private final JwtProvider jwtProvider;
     private final UserToUserDtoConverter userToUserDtoConverter;
+    private final UserService userService;
 
     public Map<String, Object> createLoginInfo(Authentication authentication) {
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
 
         AppUser user = principal.user();
+        user = userService.updateRoleAuth(user);
         UserDto userDto = userToUserDtoConverter.convert(user);
 
         String token = jwtProvider.createToken(authentication);

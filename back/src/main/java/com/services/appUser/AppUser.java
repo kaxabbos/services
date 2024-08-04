@@ -28,6 +28,8 @@ public class AppUser implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
+    @Enumerated(EnumType.STRING)
+    private Role nextRole = Role.USER;
 
     public AppUser(String username) {
         this.username = username;

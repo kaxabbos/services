@@ -53,8 +53,6 @@ export class ProductComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
-
 		this.productService.productSubject.subscribe(value => {
 			this.products = value.products;
 		})
