@@ -54,13 +54,9 @@ export class AuthService {
 			{headers: this.headersWithToken}
 		).subscribe({
 			next: ((res) => {
-
 			}),
 			error: ((error) => {
-				// console.log("error", error);
-				localStorage.setItem("id", '0');
-				localStorage.setItem("role", 'NOT');
-				localStorage.setItem("token", '');
+				localStorage.clear();
 			})
 		});
 	}
@@ -74,9 +70,7 @@ export class AuthService {
 	}
 
 	logout() {
-		localStorage.setItem("id", '0');
-		localStorage.setItem("role", 'NOT');
-		localStorage.setItem("token", '');
+		localStorage.clear();
 		this.router.navigate(['/login'])
 	}
 }
