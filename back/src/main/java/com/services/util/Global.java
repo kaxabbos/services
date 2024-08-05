@@ -57,7 +57,7 @@ public class Global {
             if (!uploadDir.exists()) uploadDir.mkdir();
             String result = path + "/" + uuidFile + "_" + file.getOriginalFilename();
             file.transferTo(new File(uploadImg + "/" + result));
-            return "http://localhost:8080/img/" + result;
+            return "https://localhost:8080/img/" + result;
         } else throw new IOException();
     }
 

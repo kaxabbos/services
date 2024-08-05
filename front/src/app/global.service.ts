@@ -18,7 +18,7 @@ export class GlobalService {
 	}
 
 	getBackendUrl() {
-		return 'http://localhost:8080';
+		return 'https://localhost:8080';
 	}
 
 	getHeaders() {

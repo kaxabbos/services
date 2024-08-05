@@ -65,7 +65,10 @@
 							"buildTarget": "front:build:production"
 						},
 						"development": {
-							"buildTarget": "front:build:development"
+							"buildTarget": "front:build:development",
+							"ssl": true,
+							"sslKey": "public/ssl/server.p8.pem",
+							"sslCert": "public/ssl/server.cer"
 						}
 					},
 					"defaultConfiguration": "development"

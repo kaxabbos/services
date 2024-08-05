@@ -64,7 +64,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(corsConfigurer -> corsConfigurer.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                    config.setAllowedOrigins(Collections.singletonList("https://localhost:4200"));
                     config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
                     config.setAllowedHeaders(Collections.singletonList("*"));
                     config.setExposedHeaders(Collections.singletonList("*"));
