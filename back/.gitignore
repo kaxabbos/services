@@ -1,0 +1,4 @@
+.idea
+target
+src/main/resources/img/category/*
+src/main/resources/img/product/*
