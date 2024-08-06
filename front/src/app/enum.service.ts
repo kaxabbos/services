@@ -11,6 +11,7 @@ export class EnumService {
 
 	enumSubject = new BehaviorSubject<any>({
 		roles: null,
+		orderingStatuses: null,
 	})
 
 	constructor(
@@ -27,6 +28,22 @@ export class EnumService {
 			next: ((res: any) => {
 				this.enumSubject.next({
 					roles: res.data,
+				});
+			}),
+			error: ((error: any) => {
+				console.log("error", error);
+			})
+		})
+	}
+
+	getOrderingStatuses() {
+		this.http.get(
+			this.global.getBackendUrl() + '/enums/orderingStatuses',
+			{headers: this.global.getHeaders()}
+		).subscribe({
+			next: ((res: any) => {
+				this.enumSubject.next({
+					orderingStatuses: res.data,
 				});
 			}),
 			error: ((error: any) => {

@@ -23,6 +23,20 @@
 		<hr>
 	</div>
 
+	<div class="rounded shadow border p-2 row mb-3" data-aos="fade-up">
+		<div class="col"></div>
+		<div class="col">
+			<input type="date" class="form-control" [(ngModel)]="filterDate">
+		</div>
+		<div class="col">
+			<select class="form-select" [(ngModel)]="filterStatus">
+				<option value="0">Все</option>
+				<option *ngFor="let i of orderingStatuses | keyvalue" [value]="i.key" [label]="i.value"></option>
+			</select>
+		</div>
+		<div class="col"></div>
+	</div>
+
 	@for (i of getSortedOrderings(); track i.id) {
 		<app-ordering-card [ordering]="i"></app-ordering-card>
 	}

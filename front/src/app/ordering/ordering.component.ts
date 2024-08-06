@@ -3,11 +3,12 @@ import {OrderingService} from "./ordering.service";
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 import {DetailCardComponent} from "./detail-card/detail-card.component";
-import {NgIf} from "@angular/common";
+import {KeyValuePipe, NgForOf, NgIf} from "@angular/common";
 import {DetailService} from "./detail.service";
 import {FormsModule} from "@angular/forms";
 import {OrderingCardComponent} from "./ordering-card/ordering-card.component";
 import {GlobalService} from "../global.service";
+import {EnumService} from "../enum.service";
 
 @Component({
 	selector: 'app-ordering',
@@ -16,7 +17,9 @@ import {GlobalService} from "../global.service";
 		DetailCardComponent,
 		NgIf,
 		FormsModule,
-		OrderingCardComponent
+		OrderingCardComponent,
+		KeyValuePipe,
+		NgForOf
 	],
 	templateUrl: './ordering.component.html',
 })
@@ -25,7 +28,13 @@ export class OrderingComponent implements OnInit {
 
 	details: any[] = []
 	orderings: any[] = []
+
 	date: any = null;
+
+	orderingStatuses: any[] = [];
+	filterDate: any = '';
+	filterStatus: any = '0';
+
 
 	constructor(
 		private orderingService: OrderingService,
@@ -33,15 +42,22 @@ export class OrderingComponent implements OnInit {
 		private authService: AuthService,
 		private router: Router,
 		private global: GlobalService,
+		private enumService: EnumService,
 	) {
 	}
 
 	getSortedOrderings() {
-		return this.orderings.sort((a: any, b: any) => {
-			if (a.status > b.status) return -1;
-			if (a.status < b.status) return 1;
-			return 0;
-		});
+		let res = this.orderings;
+
+		res = res.filter(value => value.date.includes(this.filterDate));
+
+		if (this.filterStatus !== '0') {
+			res = res.filter(value => value.status === this.filterStatus);
+		}
+
+		res = res.sort((a, b) => (a.status < b.status ? 1 : -1));
+
+		return res;
 	}
 
 	ngOnInit(): void {
@@ -60,6 +76,12 @@ export class OrderingComponent implements OnInit {
 			})
 			this.detailService.getDetails();
 		}
+
+		this.enumService.enumSubject.subscribe(value => {
+			this.orderingStatuses = value.orderingStatuses;
+			console.log(this.orderingStatuses);
+		})
+		this.enumService.getOrderingStatuses();
 
 	}
 
