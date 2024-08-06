@@ -3,6 +3,7 @@ package com.services.appUser;
 import com.services.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,10 @@ public class AppUser implements Serializable {
     @SequenceGenerator(name = "app_user_g", sequenceName = "app_user_seq", allocationSize = 1)
     private Long id;
 
+    @Size(min = 1, max = 255, message = "username is required length 1-255")
     @NotEmpty(message = "username is required")
     private String username;
+    @Size(min = 1, max = 255, message = "password is required length 1-255")
     @NotEmpty(message = "password is required")
     private String password;
 

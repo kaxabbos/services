@@ -19,8 +19,8 @@ export class RegComponent {
 	message = "";
 
 	regForm = new FormGroup({
-		username: new FormControl("", [Validators.required]),
-		password: new FormControl("", [Validators.required]),
+		username: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+		password: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
 
 	constructor(

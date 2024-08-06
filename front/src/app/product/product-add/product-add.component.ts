@@ -21,10 +21,10 @@ import {GlobalService} from "../../global.service";
 
 export class ProductAddComponent implements OnInit {
 	productFormGroup = new FormGroup({
-		name: new FormControl("", Validators.required),
-		price: new FormControl("", [Validators.required, Validators.min(0.01)]),
-		description: new FormControl("", Validators.required),
-		categoryId: new FormControl("", Validators.required),
+		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+		price: new FormControl("", [Validators.required, Validators.min(0.01), Validators.max(1000000)]),
+		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
 
 	categories: any[] = [];
