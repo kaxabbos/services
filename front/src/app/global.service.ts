@@ -36,6 +36,12 @@ export class GlobalService {
 
 	getHeadersWithToken() {
 		return new HttpHeaders({
+			'Authorization': 'Bearer ' + this.getToken(),
+		});
+	}
+
+	getHeadersJsonWithToken() {
+		return new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Authorization': 'Bearer ' + this.getToken(),
 		});

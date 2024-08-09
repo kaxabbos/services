@@ -33,7 +33,6 @@ export class ProductsService {
 	getProducts() {
 		this.http.get(
 			this.global.getBackendUrl() + '/products',
-			{headers: this.global.getHeaders()}
 		).subscribe({
 			next: ((res: any) => {
 				this.productSubject.next({
@@ -60,7 +59,7 @@ export class ProductsService {
 			this.global.getBackendUrl() + '/products',
 			body,
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.getHeadersJsonWithToken(),
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -74,7 +73,7 @@ export class ProductsService {
 			this.global.getBackendUrl() + `/products/${id}`,
 			body,
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.getHeadersJsonWithToken(),
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -97,7 +96,7 @@ export class ProductsService {
 	deleteProduct(productId: any) {
 		return this.http.delete(
 			this.global.getBackendUrl() + `/products/${productId}`,
-			{headers: this.global.getHeadersMultipartWithToken()}
+			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 }
