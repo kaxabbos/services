@@ -16,7 +16,7 @@ public class Global {
     public static final String MANAGER = "MANAGER";
     public static final String USER = "USER";
 
-    public static String getUploadImg() {
+    private static String getUploadImg() {
         StringBuilder dir = new StringBuilder(System.getProperty("user.dir"));
         for (int j = 0; j < dir.length(); j++) {
             if (dir.charAt(j) == '\\') {
