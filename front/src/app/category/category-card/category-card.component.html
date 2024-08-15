@@ -1,9 +1,4 @@
 <div class="card shadow mb-2" data-aos="fade-up">
-	<div class="card-header">
-		<img [src]="category.img" alt="img" class="rounded shadow w-100 object-fit-cover mb-2" loading="lazy"
-			 style="height: 200px">
-		<input (change)="updateImg($event)" accept="image/*" class="form-control" type="file">
-	</div>
 	<div class="card-body">
 		<input [(ngModel)]="category.name" class="form-control mb-2" type="text">
 		<button (click)="updateCategory()" *ngIf="category.name" class="btn btn-success w-100" data-aos="zoom-in"

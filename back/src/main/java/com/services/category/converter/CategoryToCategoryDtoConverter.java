@@ -11,8 +11,7 @@ public class CategoryToCategoryDtoConverter implements Converter<Category, Categ
     public CategoryDto convert(Category source) {
         return new CategoryDto(
                 source.getId(),
-                source.getName(),
-                source.getImg()
+                source.getName()
         );
     }
 }

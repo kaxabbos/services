@@ -26,6 +26,7 @@ export class ProductAddComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
+	file: any;
 
 	categories: any[] = [];
 	message: any;
@@ -54,15 +55,27 @@ export class ProductAddComponent implements OnInit {
 	addProduct() {
 		this.productService.addProduct(this.productFormGroup.value).subscribe({
 			next: ((res: any) => {
-				this.router.navigate(
-					['/product'],
-					{queryParams: {productId: res.data.id}}
-				);
+				this.productService.updateImg(this.file, res.data.id).subscribe({
+					next: (() => {
+						this.router.navigate(
+							['/product'],
+							{queryParams: {productId: res.data.id}}
+						);
+					}),
+					error: ((e: any) => {
+						console.log("error", e);
+						this.message = e.error.message;
+					})
+				})
 			}),
 			error: ((e) => {
 				console.log("error", e);
 				this.message = e.error.message;
 			})
 		})
+	}
+
+	updateImg(event: any) {
+		this.file = event.target.files[0];
 	}
 }

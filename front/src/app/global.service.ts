@@ -21,13 +21,6 @@ export class GlobalService {
 		return 'https://localhost:8080';
 	}
 
-	getHeadersMultipartWithToken() {
-		return new HttpHeaders({
-			'enctype': 'multipart/form-data',
-			'Authorization': 'Bearer ' + this.getToken(),
-		});
-	}
-
 	getHeadersWithToken() {
 		return new HttpHeaders({
 			'Authorization': 'Bearer ' + this.getToken(),
@@ -37,6 +30,13 @@ export class GlobalService {
 	getHeadersJsonWithToken() {
 		return new HttpHeaders({
 			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.getToken(),
+		});
+	}
+
+	getHeadersMultipartWithToken() {
+		return new HttpHeaders({
+			'enctype': 'multipart/form-data',
 			'Authorization': 'Bearer ' + this.getToken(),
 		});
 	}

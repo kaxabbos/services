@@ -26,19 +26,6 @@ export class CategoryCardComponent {
 		this.categoryService.updateCategory(this.category);
 	}
 
-	updateImg(event: any) {
-		this.categoryService.updateImg(event.target.files[0], this.category).subscribe({
-			next: ((res: any) => {
-				this.category = res.data;
-			}),
-			error: ((error: any) => {
-				console.log("error", error);
-				this.categoryComponent.message = error.error.message;
-			})
-		});
-	}
-
-
 	deleteCategory() {
 		this.categoryService.deleteCategory(this.category.id);
 	}

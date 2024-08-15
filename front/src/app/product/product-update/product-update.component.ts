@@ -26,6 +26,7 @@ export class ProductUpdateComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
+	file: any = null;
 
 	categories: any[] = [];
 	message: any;
@@ -81,16 +82,35 @@ export class ProductUpdateComponent implements OnInit {
 	updateProduct() {
 		this.productService.updateProduct(this.productFormGroup.value, this.id).subscribe({
 			next: ((res: any) => {
-				this.router.navigate(
-					['/product'],
-					{queryParams: {productId: res.data.id}}
-				);
+				if (this.file !== null) {
+					this.productService.updateImg(this.file, res.data.id).subscribe({
+						next: (() => {
+							this.router.navigate(
+								['/product'],
+								{queryParams: {productId: res.data.id}}
+							);
+						}),
+						error: ((e: any) => {
+							console.log("error", e);
+							this.message = e.error.message;
+						})
+					})
+				} else {
+					this.router.navigate(
+						['/product'],
+						{queryParams: {productId: res.data.id}}
+					);
+				}
 			}),
 			error: ((e) => {
 				console.log("error", e);
 				this.message = e.error.message;
 			})
 		})
+	}
+
+	updateImg(event: any) {
+		this.file = event.target.files[0];
 	}
 
 	getProductPage() {

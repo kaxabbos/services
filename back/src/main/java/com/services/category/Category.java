@@ -23,8 +23,6 @@ public class Category {
     private Long id;
 
     private String name;
-    @Column(length = 1000)
-    private String img = "/img/no_img.png";
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();

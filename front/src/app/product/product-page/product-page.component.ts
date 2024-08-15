@@ -73,18 +73,6 @@ export class ProductPageComponent implements OnInit {
 		);
 	}
 
-	updateImg(event: any) {
-		this.productService.updateImg(event.target.files[0], this.product.id).subscribe({
-			next: ((res: any) => {
-				this.product = res.data;
-			}),
-			error: ((e: any) => {
-				console.log("error", e);
-				this.message = e.error.message;
-			})
-		})
-	}
-
 	detail() {
 		this.productService.detail(this.id, this.count).subscribe({
 			next: (() => {

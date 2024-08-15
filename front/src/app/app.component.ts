@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FooterComponent} from "./footer/footer.component";
 import {NavComponent} from "./nav/nav.component";
-import {NgIf} from "@angular/common";
 import {AuthService} from "./auth/auth.service";
 
 @Component({
@@ -12,7 +11,6 @@ import {AuthService} from "./auth/auth.service";
 		RouterOutlet,
 		FooterComponent,
 		NavComponent,
-		NgIf
 	],
 	templateUrl: './app.component.html',
 })

@@ -24,8 +24,6 @@
 
 	<div class="row" data-aos="fade-up">
 		<div class="col">
-			<input (change)="updateImg($event)" *ngIf="getRole() === 'MANAGER'" accept="image/*" class="form-control mb-2"
-				   type="file">
 			<img [src]="product.img" alt="img" class="w-100 rounded shadow">
 		</div>
 		<div class="col">

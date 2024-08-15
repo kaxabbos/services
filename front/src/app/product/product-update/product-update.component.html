@@ -36,6 +36,10 @@
 			</select>
 		</div>
 		<div class="col-12 mb-2">
+			<p class="fs-4 m-0">Фото</p>
+			<input (change)="updateImg($event)" accept="image/*" class="form-control mb-2" type="file">
+		</div>
+		<div class="col-12 mb-2">
 			<p class="fs-4 m-0">Описание</p>
 			<textarea class="form-control" formControlName="description"></textarea>
 		</div>

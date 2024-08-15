@@ -73,19 +73,6 @@ public class CategoryController {
     }
 
     @Secured({ADMIN})
-    @PatchMapping("/{categoryId}/img")
-    public Result updateImg(@RequestParam MultipartFile file, @PathVariable String categoryId) {
-        Category updated = service.updateImg(file, categoryId);
-        CategoryDto updatedDto = toDtoConverter.convert(updated);
-        return new Result(
-                true,
-                StatusCode.SUCCESS,
-                "Success Update Category Img",
-                updatedDto
-        );
-    }
-
-    @Secured({ADMIN})
     @DeleteMapping("/{categoryId}")
     public Result delete(@PathVariable String categoryId) {
         service.deleteById(categoryId);
