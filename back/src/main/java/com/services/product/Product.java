@@ -24,7 +24,7 @@ public class Product {
     private Long id;
 
     private String name;
-    private String img = "/img/no_img.png";
+    private String img;
     private float price;
     @Column(length = 5000)
     private String description;
