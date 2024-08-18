@@ -44,7 +44,7 @@ export class ProductUpdateComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.global.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+			if (this.global.role !== 'MANAGER') this.router.navigate(['/login']);
 		})
 
 		this.activatedRoute.queryParams.subscribe(value => {

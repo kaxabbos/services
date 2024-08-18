@@ -62,7 +62,7 @@ export class ProductPageComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 

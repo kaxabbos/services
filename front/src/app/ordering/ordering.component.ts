@@ -86,7 +86,7 @@ export class OrderingComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	orderingAdd() {

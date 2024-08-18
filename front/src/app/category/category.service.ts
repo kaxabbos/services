@@ -20,7 +20,7 @@ export class CategoryService {
 
 	getCategories() {
 		this.http.get(
-			this.global.getBackendUrl() + '/categories',
+			this.global.backendURL + '/categories',
 		).subscribe({
 			next: ((res: any) => {
 				this.categorySubject.next({
@@ -37,7 +37,7 @@ export class CategoryService {
 	addCategory(category: any) {
 		let body = JSON.stringify(category);
 		this.http.post(
-			this.global.getBackendUrl() + '/categories',
+			this.global.backendURL + '/categories',
 			body,
 			{headers: this.global.getHeadersJsonWithToken()},
 		).subscribe({
@@ -55,7 +55,7 @@ export class CategoryService {
 
 	updateCategory(category: any) {
 		return this.http.put(
-			this.global.getBackendUrl() + `/categories/${category.id}`,
+			this.global.backendURL + `/categories/${category.id}`,
 			category,
 			{headers: this.global.getHeadersJsonWithToken()},
 		).subscribe({
@@ -77,7 +77,7 @@ export class CategoryService {
 		const formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.global.getBackendUrl() + `/categories/${category.id}/img`,
+			this.global.backendURL + `/categories/${category.id}/img`,
 			formData,
 			{headers: this.global.getHeadersMultipartWithToken()},
 		);
@@ -85,7 +85,7 @@ export class CategoryService {
 
 	deleteCategory(id: any) {
 		return this.http.delete(
-			this.global.getBackendUrl() + `/categories/${id}`,
+			this.global.backendURL + `/categories/${id}`,
 			{headers: this.global.getHeadersJsonWithToken()},
 		).subscribe({
 			next: ((res: any) => {

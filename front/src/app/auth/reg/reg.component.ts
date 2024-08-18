@@ -3,6 +3,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {AuthService} from "../auth.service";
 import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-reg',
@@ -25,19 +26,17 @@ export class RegComponent {
 
 	constructor(
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	regFormSubmit() {
 		this.authService.reg(this.regForm.value).subscribe({
-			next: ((resReg) => {
+			next: (() => {
 				this.authService.login(this.regForm.value).subscribe({
-					next: ((resLogin) => {
-						localStorage.setItem("id", resLogin.data.user.id);
-						localStorage.setItem("role", resLogin.data.user.role);
-						localStorage.setItem("token", resLogin.data.token);
-
+					next: ((res) => {
+						this.global.set(res.data.user.id, res.data.user.role, res.data.token);
 						this.router.navigate(['/']);
 					}),
 					error: ((error) => {

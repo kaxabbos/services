@@ -20,7 +20,7 @@ export class StatsService {
 
 	getCategories() {
 		this.http.get(
-			this.global.getBackendUrl() + '/stats/categories',
+			this.global.backendURL + '/stats/categories',
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {

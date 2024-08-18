@@ -22,7 +22,7 @@ export class EnumService {
 
 	getRoles() {
 		this.http.get(
-			this.global.getBackendUrl() + '/enums/roles',
+			this.global.backendURL + '/enums/roles',
 		).subscribe({
 			next: ((res: any) => {
 				this.enumSubject.next({
@@ -37,7 +37,7 @@ export class EnumService {
 
 	getOrderingStatuses() {
 		this.http.get(
-			this.global.getBackendUrl() + '/enums/orderingStatuses',
+			this.global.backendURL + '/enums/orderingStatuses',
 		).subscribe({
 			next: ((res: any) => {
 				this.enumSubject.next({

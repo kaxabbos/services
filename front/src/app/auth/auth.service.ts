@@ -18,7 +18,7 @@ export class AuthService {
 
 	login(user: any) {
 		return this.http.post<any>(
-			this.global.getBackendUrl() + '/users/login',
+			this.global.backendURL + '/users/login',
 			"",
 			{
 				headers: {
@@ -30,27 +30,27 @@ export class AuthService {
 
 	reg(user: any) {
 		return this.http.post<any>(
-			this.global.getBackendUrl() + '/users',
+			this.global.backendURL + '/users',
 			user,
 		)
 	}
 
 	getUserProfile() {
 		return this.http.get<any>(
-			this.global.getBackendUrl() + '/users/profile',
+			this.global.backendURL + '/users/profile',
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {
-				localStorage.setItem('role', res.data.role);
+				this.global.role = res.data.role;
 			}),
 			error: (() => {
-				localStorage.clear();
+				this.global.clear();
 			})
 		});
 	}
 
 	logout() {
-		localStorage.clear();
+		this.global.clear();
 		this.router.navigate(['/login'])
 	}
 }

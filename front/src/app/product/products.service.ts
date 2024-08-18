@@ -21,7 +21,7 @@ export class ProductsService {
 
 	detail(id: any, count: any) {
 		return this.http.post(
-			this.global.getBackendUrl() + `/products/${id}/detail`,
+			this.global.backendURL + `/products/${id}/detail`,
 			"",
 			{
 				headers: this.global.getHeadersWithToken(),
@@ -32,7 +32,7 @@ export class ProductsService {
 
 	getProducts() {
 		this.http.get(
-			this.global.getBackendUrl() + '/products',
+			this.global.backendURL + '/products',
 		).subscribe({
 			next: ((res: any) => {
 				this.productSubject.next({
@@ -48,7 +48,7 @@ export class ProductsService {
 
 	getProduct(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/products/${id}`,
+			this.global.backendURL + `/products/${id}`,
 			{headers: this.global.getHeadersWithToken()}
 		);
 	}
@@ -56,7 +56,7 @@ export class ProductsService {
 	addProduct(product: any) {
 		let body = JSON.stringify(product);
 		return this.http.post(
-			this.global.getBackendUrl() + '/products',
+			this.global.backendURL + '/products',
 			body,
 			{
 				headers: this.global.getHeadersJsonWithToken(),
@@ -70,7 +70,7 @@ export class ProductsService {
 	updateProduct(product: any, id: any) {
 		let body = JSON.stringify(product);
 		return this.http.put(
-			this.global.getBackendUrl() + `/products/${id}`,
+			this.global.backendURL + `/products/${id}`,
 			body,
 			{
 				headers: this.global.getHeadersJsonWithToken(),
@@ -85,7 +85,7 @@ export class ProductsService {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.global.getBackendUrl() + `/products/${productId}/img`,
+			this.global.backendURL + `/products/${productId}/img`,
 			formData,
 			{
 				headers: this.global.getHeadersMultipartWithToken(),
@@ -95,7 +95,7 @@ export class ProductsService {
 
 	deleteProduct(productId: any) {
 		return this.http.delete(
-			this.global.getBackendUrl() + `/products/${productId}`,
+			this.global.backendURL + `/products/${productId}`,
 			{headers: this.global.getHeadersWithToken()}
 		);
 	}

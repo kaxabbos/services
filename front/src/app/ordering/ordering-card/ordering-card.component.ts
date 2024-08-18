@@ -23,7 +23,7 @@ export class OrderingCardComponent {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	done() {

@@ -22,7 +22,7 @@ export class OrderingService {
 
 	getOrderings() {
 		this.http.get(
-			this.global.getBackendUrl() + '/orderings',
+			this.global.backendURL + '/orderings',
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
@@ -39,7 +39,7 @@ export class OrderingService {
 
 	addOrdering(date: any) {
 		this.http.post(
-			this.global.getBackendUrl() + '/orderings',
+			this.global.backendURL + '/orderings',
 			"",
 			{
 				headers: this.global.getHeadersWithToken(),
@@ -59,7 +59,7 @@ export class OrderingService {
 
 	done(id: any) {
 		this.http.get(
-			this.global.getBackendUrl() + `/orderings/${id}/done`,
+			this.global.backendURL + `/orderings/${id}/done`,
 			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {
@@ -77,7 +77,7 @@ export class OrderingService {
 
 	delivery(id: any) {
 		this.http.get(
-			this.global.getBackendUrl() + `/orderings/${id}/delivery`,
+			this.global.backendURL + `/orderings/${id}/delivery`,
 			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {
@@ -95,7 +95,7 @@ export class OrderingService {
 
 	delivered(id: any) {
 		this.http.get(
-			this.global.getBackendUrl() + `/orderings/${id}/delivered`,
+			this.global.backendURL + `/orderings/${id}/delivered`,
 			{headers: this.global.getHeadersWithToken(),}
 		).subscribe({
 			next: ((res: any) => {

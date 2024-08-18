@@ -4,40 +4,71 @@ import {HttpHeaders} from "@angular/common/http";
 @Injectable({
 	providedIn: 'root'
 })
+
 export class GlobalService {
-	getUserId() {
-		return Number(localStorage.getItem('id')) || 0;
+
+	private _userid: number = 0;
+	private _role: string = 'NOT';
+	private _token: string = '';
+	private _backendURL: string = 'https://localhost:8080';
+
+	public set(userid: number, role: string, token: string) {
+		this.userid = userid;
+		this.role = role;
+		this.token = token;
 	}
 
-	getRole() {
-		return localStorage.getItem("role") || 'NOT';
+	public clear() {
+		this.userid = 0;
+		this.role = 'NOT';
+		this.token = '';
 	}
 
-	getToken() {
-		return localStorage.getItem("token") || '';
+	get userid(): number {
+		return this._userid;
 	}
 
-	getBackendUrl() {
-		return 'https://localhost:8080';
+	set userid(value: number) {
+		this._userid = value;
+	}
+
+	get role(): string {
+		return this._role;
+	}
+
+	set role(value: string) {
+		this._role = value;
+	}
+
+	get token(): string {
+		return this._token;
+	}
+
+	set token(value: string) {
+		this._token = value;
+	}
+
+	get backendURL(): string {
+		return this._backendURL;
 	}
 
 	getHeadersWithToken() {
 		return new HttpHeaders({
-			'Authorization': 'Bearer ' + this.getToken(),
+			'Authorization': 'Bearer ' + this.token,
 		});
 	}
 
 	getHeadersJsonWithToken() {
 		return new HttpHeaders({
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + this.getToken(),
+			'Authorization': 'Bearer ' + this.token,
 		});
 	}
 
 	getHeadersMultipartWithToken() {
 		return new HttpHeaders({
 			'enctype': 'multipart/form-data',
-			'Authorization': 'Bearer ' + this.getToken(),
+			'Authorization': 'Bearer ' + this.token,
 		});
 	}
 }
