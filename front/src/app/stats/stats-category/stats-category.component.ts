@@ -23,12 +23,15 @@ export class StatsCategoryComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.statsService.statsSubject.subscribe(value => {
-			this.data = value.categories;
-			this.updateChart();
+		this.statsService.getCategories().subscribe({
+			next: ((res: any) => {
+				this.data = res.data
+				this.updateChart();
+			}),
+			error: ((e) => {
+				console.log("error", e);
+			})
 		})
-
-		this.statsService.getCategories();
 	}
 
 	updateChart() {
