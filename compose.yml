@@ -30,5 +30,5 @@ services :
             context :    front
             dockerfile : Dockerfile
         container_name : web-server
-        ports:
-        -   4200:80
+        ports :
+        - 4200:4200
