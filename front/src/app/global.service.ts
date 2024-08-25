@@ -47,20 +47,20 @@ export class GlobalService {
 		return 'https://localhost:8080';
 	}
 
-	getHeadersWithToken() {
+	get headersToken() {
 		return new HttpHeaders({
 			'Authorization': 'Bearer ' + this.token,
 		});
 	}
 
-	getHeadersJsonWithToken() {
+	get headersJsonToken() {
 		return new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Authorization': 'Bearer ' + this.token,
 		});
 	}
 
-	getHeadersMultipartWithToken() {
+	get headersMultipartToken() {
 		return new HttpHeaders({
 			'enctype': 'multipart/form-data',
 			'Authorization': 'Bearer ' + this.token,

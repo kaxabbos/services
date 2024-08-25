@@ -16,7 +16,7 @@ export class StatsService {
 	getCategories() {
 		return this.http.get(
 			this.global.backendURL + '/stats/categories',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		);
 	}
 

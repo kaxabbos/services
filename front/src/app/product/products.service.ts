@@ -24,7 +24,7 @@ export class ProductsService {
 			this.global.backendURL + `/products/${id}/detail`,
 			"",
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.headersToken,
 				params: new HttpParams().appendAll({count: count})
 			},
 		);
@@ -49,7 +49,7 @@ export class ProductsService {
 	getProduct(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/products/${id}`,
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		);
 	}
 
@@ -59,7 +59,7 @@ export class ProductsService {
 			this.global.backendURL + '/products',
 			body,
 			{
-				headers: this.global.getHeadersJsonWithToken(),
+				headers: this.global.headersJsonToken,
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -73,7 +73,7 @@ export class ProductsService {
 			this.global.backendURL + `/products/${id}`,
 			body,
 			{
-				headers: this.global.getHeadersJsonWithToken(),
+				headers: this.global.headersJsonToken,
 				params: new HttpParams().appendAll({
 					categoryId: product.categoryId,
 				})
@@ -88,7 +88,7 @@ export class ProductsService {
 			this.global.backendURL + `/products/${productId}/img`,
 			formData,
 			{
-				headers: this.global.getHeadersMultipartWithToken(),
+				headers: this.global.headersMultipartToken,
 			}
 		);
 	}
@@ -96,7 +96,7 @@ export class ProductsService {
 	deleteProduct(productId: any) {
 		return this.http.delete(
 			this.global.backendURL + `/products/${productId}`,
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		);
 	}
 }

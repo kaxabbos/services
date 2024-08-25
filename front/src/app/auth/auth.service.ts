@@ -38,7 +38,7 @@ export class AuthService {
 	getUserProfile() {
 		return this.http.get<any>(
 			this.global.backendURL + '/users/profile',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		).subscribe({
 			next: ((res) => {
 				this.global.role = res.data.role;

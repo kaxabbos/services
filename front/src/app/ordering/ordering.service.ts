@@ -23,7 +23,7 @@ export class OrderingService {
 	getOrderings() {
 		this.http.get(
 			this.global.backendURL + '/orderings',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		).subscribe({
 			next: ((res: any) => {
 				this.orderingSubject.next({
@@ -42,7 +42,7 @@ export class OrderingService {
 			this.global.backendURL + '/orderings',
 			"",
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.headersToken,
 				params: new HttpParams().appendAll({
 					date: date,
 				})
@@ -60,7 +60,7 @@ export class OrderingService {
 	done(id: any) {
 		this.http.get(
 			this.global.backendURL + `/orderings/${id}/done`,
-			{headers: this.global.getHeadersWithToken(),}
+			{headers: this.global.headersToken,}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
@@ -78,7 +78,7 @@ export class OrderingService {
 	delivery(id: any) {
 		this.http.get(
 			this.global.backendURL + `/orderings/${id}/delivery`,
-			{headers: this.global.getHeadersWithToken(),}
+			{headers: this.global.headersToken,}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);
@@ -96,7 +96,7 @@ export class OrderingService {
 	delivered(id: any) {
 		this.http.get(
 			this.global.backendURL + `/orderings/${id}/delivered`,
-			{headers: this.global.getHeadersWithToken(),}
+			{headers: this.global.headersToken,}
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id === id ? res.data : i);

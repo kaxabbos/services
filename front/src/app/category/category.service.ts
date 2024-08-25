@@ -39,7 +39,7 @@ export class CategoryService {
 		this.http.post(
 			this.global.backendURL + '/categories',
 			body,
-			{headers: this.global.getHeadersJsonWithToken()},
+			{headers: this.global.headersJsonToken},
 		).subscribe({
 			next: ((res: any) => {
 				this.categorySubject.next({
@@ -57,7 +57,7 @@ export class CategoryService {
 		return this.http.put(
 			this.global.backendURL + `/categories/${category.id}`,
 			category,
-			{headers: this.global.getHeadersJsonWithToken()},
+			{headers: this.global.headersJsonToken},
 		).subscribe({
 			next: ((res: any) => {
 				const current = this.categorySubject.value;
@@ -79,14 +79,14 @@ export class CategoryService {
 		return this.http.patch(
 			this.global.backendURL + `/categories/${category.id}/img`,
 			formData,
-			{headers: this.global.getHeadersMultipartWithToken()},
+			{headers: this.global.headersMultipartToken},
 		);
 	}
 
 	deleteCategory(id: any) {
 		return this.http.delete(
 			this.global.backendURL + `/categories/${id}`,
-			{headers: this.global.getHeadersJsonWithToken()},
+			{headers: this.global.headersJsonToken},
 		).subscribe({
 			next: ((res: any) => {
 				const current = this.categorySubject.value;

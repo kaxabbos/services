@@ -20,7 +20,7 @@ export class DetailService {
 	getDetails() {
 		return this.http.get(
 			this.global.backendURL + '/details',
-			{headers: this.global.getHeadersJsonWithToken()}
+			{headers: this.global.headersJsonToken}
 		).subscribe({
 			next: ((res: any) => {
 				this.detailSubject.next({
@@ -39,7 +39,7 @@ export class DetailService {
 			this.global.backendURL + `/details/${id}`,
 			"",
 			{
-				headers: this.global.getHeadersJsonWithToken(),
+				headers: this.global.headersJsonToken,
 				params: new HttpParams().appendAll({count: count})
 			}
 		);
@@ -48,7 +48,7 @@ export class DetailService {
 	deleteDetail(id: any) {
 		return this.http.delete(
 			this.global.backendURL + `/details/${id}`,
-			{headers: this.global.getHeadersJsonWithToken()}
+			{headers: this.global.headersJsonToken}
 		).subscribe({
 			next: ((res) => {
 				let current = this.detailSubject.value;
