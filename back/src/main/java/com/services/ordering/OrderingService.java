@@ -41,33 +41,29 @@ public class OrderingService {
         }
     }
 
-    public Ordering save(Ordering ordering) {
-        return repository.save(ordering);
-    }
-
-    public Ordering add(String date) {
+    public Ordering save(String date) {
         List<Detail> details = detailService.findAll();
         if (details.isEmpty()) {
             throw new BadRequestException("Нету данных для составления заказа");
         }
-        return save(new Ordering(date, userService.getCurrentUser(), details));
+        return repository.save(new Ordering(date, userService.getCurrentUser(), details));
     }
 
     public Ordering done(String orderingId) {
         Ordering ordering = findById(orderingId);
         ordering.setStatus(OrderingStatus.DONE);
-        return save(ordering);
+        return repository.save(ordering);
     }
 
     public Ordering delivery(String orderingId) {
         Ordering ordering = findById(orderingId);
         ordering.setStatus(OrderingStatus.DELIVERY);
-        return save(ordering);
+        return repository.save(ordering);
     }
 
     public Ordering delivered(String orderingId) {
         Ordering ordering = findById(orderingId);
         ordering.setStatus(OrderingStatus.DELIVERED);
-        return save(ordering);
+        return repository.save(ordering);
     }
 }

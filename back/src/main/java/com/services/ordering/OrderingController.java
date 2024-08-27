@@ -22,23 +22,23 @@ public class OrderingController {
 
     @GetMapping
     @Secured({USER, MANAGER})
-    public Result getOrderings() {
+    public Result findAll() {
         return new Result(
                 true,
                 StatusCode.SUCCESS,
-                "Success",
+                "Success Find All",
                 service.findAll().stream().map(toDtoConverter::convert).collect(Collectors.toList())
         );
     }
 
     @PostMapping
     @Secured({USER})
-    public Result addOrdering(@RequestParam String date) {
+    public Result save(@RequestParam String date) {
         return new Result(
                 true,
                 StatusCode.SUCCESS,
-                "Success",
-                toDtoConverter.convert(service.add(date))
+                "Success Save",
+                toDtoConverter.convert(service.save(date))
         );
     }
 
