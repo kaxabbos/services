@@ -30,7 +30,7 @@ export class ProductsService {
 		);
 	}
 
-	getProducts() {
+	findAll() {
 		this.http.get(
 			this.global.backendURL + '/products',
 		).subscribe({
@@ -46,14 +46,14 @@ export class ProductsService {
 		});
 	}
 
-	getProduct(id: any) {
+	findById(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/products/${id}`,
 			{headers: this.global.headersToken}
 		);
 	}
 
-	addProduct(product: any) {
+	save(product: any) {
 		let body = JSON.stringify(product);
 		return this.http.post(
 			this.global.backendURL + '/products',
@@ -67,7 +67,7 @@ export class ProductsService {
 		);
 	}
 
-	updateProduct(product: any, id: any) {
+	update(product: any, id: any) {
 		let body = JSON.stringify(product);
 		return this.http.put(
 			this.global.backendURL + `/products/${id}`,
@@ -81,11 +81,11 @@ export class ProductsService {
 		);
 	}
 
-	updateImg(file: File, productId: any) {
+	updateImg(file: File, id: any) {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.global.backendURL + `/products/${productId}/img`,
+			this.global.backendURL + `/products/${id}/img`,
 			formData,
 			{
 				headers: this.global.headersMultipartToken,
@@ -93,9 +93,9 @@ export class ProductsService {
 		);
 	}
 
-	deleteProduct(productId: any) {
+	delete(id: any) {
 		return this.http.delete(
-			this.global.backendURL + `/products/${productId}`,
+			this.global.backendURL + `/products/${id}`,
 			{headers: this.global.headersToken}
 		);
 	}

@@ -1,25 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {Router} from "@angular/router";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-product-card',
 	standalone: true,
-	imports: [],
+	imports: [
+		NavigateDirective
+	],
 	templateUrl: './product-card.component.html',
 })
 
 export class ProductCardComponent {
 	@Input() product: any;
-
-	constructor(
-		private router: Router,
-	) {
-	}
-
-	productPage() {
-		this.router.navigate(
-			['/product'],
-			{queryParams: {productId: this.product.id}}
-		);
-	}
 }

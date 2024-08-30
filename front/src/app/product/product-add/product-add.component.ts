@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-product-add',
@@ -14,7 +15,8 @@ import {GlobalService} from "../../global.service";
 		ReactiveFormsModule,
 		FormsModule,
 		NgForOf,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './product-add.component.html',
 })
@@ -32,7 +34,7 @@ export class ProductAddComponent implements OnInit {
 	message: any;
 
 	constructor(
-		public router: Router,
+		private router: Router,
 		private authService: AuthService,
 		private productService: ProductsService,
 		private categoryService: CategoryService,
@@ -49,17 +51,17 @@ export class ProductAddComponent implements OnInit {
 			this.categories = value.categories;
 		})
 
-		this.categoryService.getCategories();
+		this.categoryService.findAll();
 	}
 
-	addProduct() {
-		this.productService.addProduct(this.productFormGroup.value).subscribe({
+	save() {
+		this.productService.save(this.productFormGroup.value).subscribe({
 			next: ((res: any) => {
 				this.productService.updateImg(this.file, res.data.id).subscribe({
 					next: (() => {
 						this.router.navigate(
 							['/product'],
-							{queryParams: {productId: res.data.id}}
+							{queryParams: {id: res.data.id}}
 						);
 					}),
 					error: ((e: any) => {

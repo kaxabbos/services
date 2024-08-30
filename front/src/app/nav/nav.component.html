@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-primary mb-5 shadow" data-bs-theme="dark">
 	<div class="container">
-		<a (click)="router.navigate(['/'])" class="navbar-brand" role="button">Front</a>
+		<a appNavigate [navigateURL]="''" class="navbar-brand" role="button">Front</a>
 		<button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
 				class="navbar-toggler" data-bs-target="#navbarColor01" data-bs-toggle="collapse" type="button">
 			<span class="navbar-toggler-icon"></span>
@@ -8,32 +8,32 @@
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav mx-auto">
 				<li class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/'])" class="nav-link" role="button">Главная</a>
+					<a appNavigate [navigateURL]="''"class="nav-link" role="button">Главная</a>
 				</li>
 				<li class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/products'])" class="nav-link" role="button">Услуги/Товары</a>
+					<a appNavigate [navigateURL]="'products'" class="nav-link" role="button">Услуги/Товары</a>
 				</li>
-				<li *ngIf="getRole() === 'MANAGER' || getRole() === 'USER'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/orderings'])" class="nav-link" role="button">Заказы</a>
+				<li *ngIf="role === 'MANAGER' || role === 'USER'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'orderings'" class="nav-link" role="button">Заказы</a>
 				</li>
-				<li *ngIf="getRole() === 'ADMIN'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/users'])" class="nav-link" role="button">Пользователи</a>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'users'" class="nav-link" role="button">Пользователи</a>
 				</li>
-				<li *ngIf="getRole() === 'ADMIN'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/categories'])" class="nav-link" role="button">Категории</a>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'categories'" class="nav-link" role="button">Категории</a>
 				</li>
-				<li *ngIf="getRole() === 'ADMIN'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/stats'])" class="nav-link" role="button">Аналитика</a>
+				<li *ngIf="role === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'stats'" class="nav-link" role="button">Аналитика</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav">
-				<li *ngIf="getRole() === 'NOT'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/login'])" class="nav-link" role="button">Вход</a>
+				<li *ngIf="role === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'login'" class="nav-link" role="button">Вход</a>
 				</li>
-				<li *ngIf="getRole() === 'NOT'" class="nav-item" data-aos="zoom-in">
-					<a (click)="router.navigate(['/reg'])" class="nav-link" role="button">Регистрация</a>
+				<li *ngIf="role === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a appNavigate [navigateURL]="'reg'" class="nav-link" role="button">Регистрация</a>
 				</li>
-				<li *ngIf="getRole() !== 'NOT'" class="nav-item" data-aos="zoom-in">
+				<li *ngIf="role !== 'NOT'" class="nav-item" data-aos="zoom-in">
 					<a (click)="logout()" class="nav-link" role="button">Выход</a>
 				</li>
 			</ul>

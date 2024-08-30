@@ -14,7 +14,7 @@
 				<input [(ngModel)]="date" class="form-control" type="date">
 			</div>
 			<div class="col-auto">
-				<button (click)="orderingAdd()" *ngIf="date !== null" class="btn btn-primary" data-aos="zoom-in"
+				<button (click)="add()" *ngIf="date !== null" class="btn btn-primary" data-aos="zoom-in"
 						type="button">Оформить
 				</button>
 			</div>
@@ -37,7 +37,7 @@
 		<div class="col"></div>
 	</div>
 
-	@for (i of getSortedOrderings(); track i.id) {
+	@for (i of sortedOrderings; track i.id) {
 		<app-ordering-card [ordering]="i"></app-ordering-card>
 	}
 

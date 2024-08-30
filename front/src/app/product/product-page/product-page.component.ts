@@ -5,13 +5,15 @@ import {ProductsService} from "../products.service";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-product-page',
 	standalone: true,
 	imports: [
 		NgIf,
-		FormsModule
+		FormsModule,
+		NavigateDirective
 	],
 	templateUrl: './product-page.component.html',
 })
@@ -32,14 +34,14 @@ export class ProductPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.getRole() === 'NOT') this.router.navigate(['/login']);
+			if (this.role === 'NOT') this.router.navigate(['/login']);
 		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
-			this.id = params['productId'];
+			this.id = params['id'];
 		});
 
-		this.productService.getProduct(this.id).subscribe({
+		this.productService.findById(this.id).subscribe({
 			next: ((res: any) => {
 				this.product = res.data;
 			}),
@@ -61,16 +63,8 @@ export class ProductPageComponent implements OnInit {
 		});
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
-	}
-
-
-	updatePage() {
-		this.router.navigate(
-			['/productUpdate'],
-			{queryParams: {productId: this.id}}
-		);
 	}
 
 	detail() {
@@ -85,8 +79,8 @@ export class ProductPageComponent implements OnInit {
 		})
 	}
 
-	deleteProduct() {
-		this.productService.deleteProduct(this.id).subscribe({
+	delete() {
+		this.productService.delete(this.id).subscribe({
 			next: (() => {
 				this.router.navigate(['/products']);
 			}),

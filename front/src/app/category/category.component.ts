@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
 	category = new FormGroup({
 		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
-	message = "";
+	message: string = "";
 
 	constructor(
 		private authService: AuthService,
@@ -53,10 +53,10 @@ export class CategoryComponent implements OnInit {
 			this.categories = value.categories;
 		})
 
-		this.categoryService.getCategories();
+		this.categoryService.findAll();
 	}
 
-	addCategory() {
-		this.categoryService.addCategory(this.category.value);
+	save() {
+		this.categoryService.save(this.category.value);
 	}
 }

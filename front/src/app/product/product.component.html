@@ -2,10 +2,10 @@
 
 	<h1 class="text-center mb-5" data-aos="zoom-in">Услуги/Товары</h1>
 
-	<div *ngIf="getRole() === 'MANAGER'" class="row mb-5" data-aos="zoom-in">
+	<div *ngIf="role === 'MANAGER'" class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="router.navigate(['/productAdd'])" class="btn btn-primary w-100">Добавить</a>
+			<a appNavigate [navigateURL]="'productAdd'" class="btn btn-primary w-100">Добавить</a>
 		</div>
 		<div class="col"></div>
 	</div>
@@ -35,7 +35,7 @@
 	</div>
 
 	<div class="row justify-content-center">
-		@for (i of getProducts(); track i.id) {
+		@for (i of sorted; track i.id) {
 			<div class="col-4">
 				<app-product-card [product]="i"></app-product-card>
 			</div>

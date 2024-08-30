@@ -11,13 +11,13 @@
 	<div class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="router.navigate(['/products'])" class="btn btn-secondary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'products'" class="btn btn-secondary w-100">Назад</a>
 		</div>
-		<div *ngIf="getRole() === 'MANAGER'" class="col">
-			<a (click)="updatePage()" class="btn btn-success w-100">Обновить</a>
+		<div *ngIf="role === 'MANAGER'" class="col">
+			<a appNavigate [navigateURL]="'productUpdate'" [queryParams]="{id: id}" class="btn btn-success w-100">Обновить</a>
 		</div>
-		<div *ngIf="getRole() === 'MANAGER'" class="col">
-			<a (click)="deleteProduct()" class="btn btn-danger w-100">Удалить</a>
+		<div *ngIf="role === 'MANAGER'" class="col">
+			<a (click)="delete()" class="btn btn-danger w-100">Удалить</a>
 		</div>
 		<div class="col"></div>
 	</div>
@@ -27,7 +27,7 @@
 			<img [src]="product.img" alt="img" class="w-100 rounded shadow">
 		</div>
 		<div class="col">
-			<div *ngIf="getRole() === 'USER'" class="row align-items-center mb-3">
+			<div *ngIf="role === 'USER'" class="row align-items-center mb-3">
 				<div class="col">
 					<input [(ngModel)]="count" class="form-control" min="1" placeholder="Введите количество" step="1"
 						   type="number">

@@ -34,7 +34,7 @@ export class DetailService {
 		});
 	}
 
-	updateDetail(id: any, count: any) {
+	update(id: any, count: any) {
 		return this.http.patch(
 			this.global.backendURL + `/details/${id}`,
 			"",
@@ -45,7 +45,7 @@ export class DetailService {
 		);
 	}
 
-	deleteDetail(id: any) {
+	delete(id: any) {
 		return this.http.delete(
 			this.global.backendURL + `/details/${id}`,
 			{headers: this.global.headersJsonToken}

@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {CategoryService} from "../category/category.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GlobalService} from "../global.service";
+import {NavigateDirective} from "../navigate.directive";
 
 @Component({
 	selector: 'app-product',
@@ -15,19 +16,19 @@ import {GlobalService} from "../global.service";
 		ProductCardComponent,
 		NgIf,
 		ReactiveFormsModule,
-		FormsModule
+		FormsModule,
+		NavigateDirective
 	],
 	templateUrl: './product.component.html',
 })
 export class ProductComponent implements OnInit {
 	products: any[] = []
 	categories: any[] = []
-	name = '';
-	categoryId = 0;
-	filter = 0;
+	name: string = '';
+	categoryId: number = 0;
+	filter: number = 0;
 
 	constructor(
-		public router: Router,
 		private productService: ProductsService,
 		private authService: AuthService,
 		private categoryService: CategoryService,
@@ -35,7 +36,7 @@ export class ProductComponent implements OnInit {
 	) {
 	}
 
-	getProducts() {
+	get sorted() {
 		let res = this.products;
 
 		res = res.filter(value => value.name.includes(this.name));
@@ -65,11 +66,11 @@ export class ProductComponent implements OnInit {
 			this.categories = value.categories;
 		})
 
-		this.productService.getProducts();
-		this.categoryService.getCategories();
+		this.productService.findAll();
+		this.categoryService.findAll();
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 

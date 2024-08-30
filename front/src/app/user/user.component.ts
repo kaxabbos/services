@@ -54,7 +54,7 @@ export class UserComponent implements OnInit {
 		});
 	}
 
-	getUserId() {
+	get userid() {
 		return this.global.userid;
 	}
 }

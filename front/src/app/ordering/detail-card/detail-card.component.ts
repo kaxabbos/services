@@ -3,13 +3,15 @@ import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe} from "@angular/common";
 import {DetailService} from "../detail.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-detail-card',
 	standalone: true,
 	imports: [
 		FormsModule,
-		DecimalPipe
+		DecimalPipe,
+		NavigateDirective
 	],
 	templateUrl: './detail-card.component.html',
 })
@@ -18,7 +20,6 @@ export class DetailCardComponent {
 	@Input() detail: any;
 
 	constructor(
-		private router: Router,
 		private detailService: DetailService,
 	) {
 	}
@@ -27,19 +28,8 @@ export class DetailCardComponent {
 		return this.detail.count * this.detail.productPrice;
 	}
 
-	productPage() {
-		this.router.navigate(
-			['/product'],
-			{
-				queryParams: {
-					productId: this.detail.productId
-				}
-			}
-		)
-	}
-
-	updateDetail() {
-		this.detailService.updateDetail(this.detail.id, this.detail.count).subscribe({
+	update() {
+		this.detailService.update(this.detail.id, this.detail.count).subscribe({
 			next: ((res: any) => {
 				this.detail = res.data;
 			}),
@@ -49,7 +39,7 @@ export class DetailCardComponent {
 		})
 	}
 
-	deleteDetail() {
-		this.detailService.deleteDetail(this.detail.id);
+	delete() {
+		this.detailService.delete(this.detail.id);
 	}
 }

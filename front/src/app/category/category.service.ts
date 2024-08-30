@@ -18,7 +18,7 @@ export class CategoryService {
 	) {
 	}
 
-	getCategories() {
+	findAll() {
 		this.http.get(
 			this.global.backendURL + '/categories',
 		).subscribe({
@@ -34,7 +34,7 @@ export class CategoryService {
 		});
 	}
 
-	addCategory(category: any) {
+	save(category: any) {
 		let body = JSON.stringify(category);
 		this.http.post(
 			this.global.backendURL + '/categories',
@@ -53,7 +53,7 @@ export class CategoryService {
 		});
 	}
 
-	updateCategory(category: any) {
+	update(category: any) {
 		return this.http.put(
 			this.global.backendURL + `/categories/${category.id}`,
 			category,
@@ -83,7 +83,7 @@ export class CategoryService {
 		);
 	}
 
-	deleteCategory(id: any) {
+	delete(id: any) {
 		return this.http.delete(
 			this.global.backendURL + `/categories/${id}`,
 			{headers: this.global.headersJsonToken},

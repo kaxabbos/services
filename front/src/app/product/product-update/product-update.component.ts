@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-product-update',
@@ -14,7 +15,8 @@ import {GlobalService} from "../../global.service";
 		ReactiveFormsModule,
 		FormsModule,
 		NgForOf,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './product-update.component.html',
 })
@@ -26,11 +28,11 @@ export class ProductUpdateComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
-	file: any = null;
 
+	id: number = 0;
 	categories: any[] = [];
-	message: any;
-	id: any;
+	file: any = null;
+	message: string = '';
 
 	constructor(
 		private router: Router,
@@ -48,10 +50,10 @@ export class ProductUpdateComponent implements OnInit {
 		})
 
 		this.activatedRoute.queryParams.subscribe(value => {
-			this.id = value['productId'];
+			this.id = value['id'];
 		})
 
-		this.productService.getProduct(this.id).subscribe({
+		this.productService.findById(this.id).subscribe({
 			next: ((res: any) => {
 				this.productFormGroup.setValue({
 					name: res.data.name,
@@ -76,18 +78,18 @@ export class ProductUpdateComponent implements OnInit {
 		this.categoryService.categorySubject.subscribe(value => {
 			this.categories = value.categories;
 		})
-		this.categoryService.getCategories();
+		this.categoryService.findAll();
 	}
 
-	updateProduct() {
-		this.productService.updateProduct(this.productFormGroup.value, this.id).subscribe({
+	update() {
+		this.productService.update(this.productFormGroup.value, this.id).subscribe({
 			next: ((res: any) => {
 				if (this.file !== null) {
 					this.productService.updateImg(this.file, res.data.id).subscribe({
 						next: (() => {
 							this.router.navigate(
 								['/product'],
-								{queryParams: {productId: res.data.id}}
+								{queryParams: {id: res.data.id}}
 							);
 						}),
 						error: ((e: any) => {
@@ -98,7 +100,7 @@ export class ProductUpdateComponent implements OnInit {
 				} else {
 					this.router.navigate(
 						['/product'],
-						{queryParams: {productId: res.data.id}}
+						{queryParams: {id: res.data.id}}
 					);
 				}
 			}),
@@ -111,12 +113,5 @@ export class ProductUpdateComponent implements OnInit {
 
 	updateImg(event: any) {
 		this.file = event.target.files[0];
-	}
-
-	getProductPage() {
-		this.router.navigate(
-			['/product'],
-			{queryParams: {productId: this.id}}
-		);
 	}
 }

@@ -11,12 +11,12 @@
 	<div class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="router.navigate(['/products'])" class="btn btn-secondary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'products'" class="btn btn-secondary w-100">Назад</a>
 		</div>
 		<div class="col"></div>
 	</div>
 
-	<form (ngSubmit)="addProduct()" [formGroup]="productFormGroup" class="row" data-aos="zoom-in-up">
+	<form (ngSubmit)="save()" [formGroup]="productFormGroup" class="row" data-aos="zoom-in-up">
 		<div class="col mb-2">
 			<p class="fs-4 m-0">Наименование</p>
 			<input class="form-control" formControlName="name" type="text">

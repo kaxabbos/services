@@ -11,12 +11,12 @@
 	<div class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="getProductPage()" class="btn btn-secondary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'product'" [queryParams]="{id: id}" class="btn btn-secondary w-100">Назад</a>
 		</div>
 		<div class="col"></div>
 	</div>
 
-	<form (ngSubmit)="updateProduct()" [formGroup]="productFormGroup" class="row" data-aos="zoom-in-up">
+	<form (ngSubmit)="update()" [formGroup]="productFormGroup" class="row" data-aos="zoom-in-up">
 		<div class="col-4 mb-2">
 			<p class="fs-4 m-0">Наименование</p>
 			<input class="form-control" formControlName="name" type="text">

@@ -1,15 +1,15 @@
 <div class="shadow rounded border p-2 row mb-3 fs-5 align-items-center text-center" data-aos="fade-up">
-	<div *ngIf="getRole() === 'MANAGER'" class="col"><p class="m-0">{{ 'Заказчик: ' + ordering.ownerName }}</p></div>
+	<div *ngIf="role === 'MANAGER'" class="col"><p class="m-0">{{ 'Заказчик: ' + ordering.ownerName }}</p></div>
 	<div class="col"><p class="m-0">{{ 'Дата: ' + ordering.date }}</p></div>
 	<div class="col"><p class="m-0">{{ 'Цена: ' + ordering.price }}</p></div>
 	<div class="col"><p class="m-0">{{ 'Статус: ' + ordering.statusName }}</p></div>
-	<div *ngIf="ordering.status === 'WAITING' && getRole() === 'MANAGER'" class="col-auto">
+	<div *ngIf="ordering.status === 'WAITING' && role === 'MANAGER'" class="col-auto">
 		<a (click)="done()" class="btn btn-primary" role="button">Подтвердить</a>
 	</div>
-	<div *ngIf="ordering.status === 'DONE' && getRole() === 'MANAGER'" class="col-auto">
+	<div *ngIf="ordering.status === 'DONE' && role === 'MANAGER'" class="col-auto">
 		<a (click)="delivery()" class="btn btn-primary" role="button">Отправить</a>
 	</div>
-	<div *ngIf="ordering.status === 'DELIVERY' && getRole() === 'USER'" class="col-auto">
+	<div *ngIf="ordering.status === 'DELIVERY' && role === 'USER'" class="col-auto">
 		<a (click)="delivered()" class="btn btn-primary" role="button">Получить</a>
 	</div>
 	<div class="col-auto">
@@ -24,7 +24,11 @@
 	<div class="card card-body shadow fs-5">
 		@for (d of ordering.details; track d.id) {
 			<div class="row text-center">
-				<div class="col"><p class="m-0">{{ d.productName }}</p></div>
+				<div class="col">
+					<a appNavigate [navigateURL]="'product'" [queryParams]="{id: d.productId}" role="button">
+						<p class="m-0">{{ d.productName }}</p>
+					</a>
+				</div>
 				<div class="col"><p class="m-0">{{ 'Количество: ' + d.count }}</p></div>
 				<div class="col"><p class="m-0">{{ 'Цена: ' + (d.price | number : '1.2-2') }}</p></div>
 			</div>

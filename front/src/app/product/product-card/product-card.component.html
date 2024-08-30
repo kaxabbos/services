@@ -8,6 +8,6 @@
 		<p class="fs-4 m-0">{{ 'Цена: ' + product.price }}</p>
 	</div>
 	<div class="card-footer">
-		<a (click)="productPage()" class="btn btn-primary w-100">Подробнее</a>
+		<a appNavigate [navigateURL]="'product'" [queryParams]="{id: product.id}" class="btn btn-primary w-100">Подробнее</a>
 	</div>
 </div>

@@ -22,11 +22,11 @@ export class CategoryCardComponent {
 	) {
 	}
 
-	updateCategory() {
-		this.categoryService.updateCategory(this.category);
+	update() {
+		this.categoryService.update(this.category);
 	}
 
-	deleteCategory() {
-		this.categoryService.deleteCategory(this.category.id);
+	delete() {
+		this.categoryService.delete(this.category.id);
 	}
 }

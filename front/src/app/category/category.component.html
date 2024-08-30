@@ -8,7 +8,7 @@
 		</div>
 	</div>
 
-	<form (ngSubmit)="addCategory()" [formGroup]="category" class="row align-items-center mb-5" data-aos="zoom-in">
+	<form (ngSubmit)="save()" [formGroup]="category" class="row align-items-center mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
 			<input class="form-control" formControlName="name" placeholder="Наименование" type="text">

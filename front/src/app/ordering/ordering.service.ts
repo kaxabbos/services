@@ -37,7 +37,7 @@ export class OrderingService {
 		});
 	}
 
-	addOrdering(date: any) {
+	add(date: any) {
 		this.http.post(
 			this.global.backendURL + '/orderings',
 			"",
