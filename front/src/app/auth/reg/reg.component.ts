@@ -14,9 +14,6 @@ import {NgIf} from "@angular/common";
 	templateUrl: './reg.component.html',
 })
 export class RegComponent {
-
-	message = "";
-
 	regForm = new FormGroup({
 		username: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		password: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),

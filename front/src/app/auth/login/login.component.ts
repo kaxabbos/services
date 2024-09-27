@@ -15,8 +15,6 @@ import {NgIf} from "@angular/common";
 })
 
 export class LoginComponent {
-	message = "";
-
 	loginForm = new FormGroup({
 		username: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		password: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),

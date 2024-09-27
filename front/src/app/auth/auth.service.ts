@@ -19,7 +19,7 @@ export class AuthService {
 	}
 
 	login(user: any) {
-		return this.http.post<any>(
+		this.http.post<any>(
 			this.global.backendURL + '/users/login',
 			"",
 			{headers: {'Authorization': 'Basic ' + btoa(user.username + ":" + user.password)}}
@@ -37,7 +37,7 @@ export class AuthService {
 	}
 
 	reg(user: any) {
-		return this.http.post<any>(
+		this.http.post<any>(
 			this.global.backendURL + '/users',
 			user,
 		).subscribe({

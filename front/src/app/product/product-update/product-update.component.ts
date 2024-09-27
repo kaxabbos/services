@@ -7,6 +7,7 @@ import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-product-update',
@@ -32,7 +33,6 @@ export class ProductUpdateComponent implements OnInit {
 	id: number = 0;
 	categories: any[] = [];
 	file: any = null;
-	message: string = '';
 
 	constructor(
 		private router: Router,
@@ -40,7 +40,8 @@ export class ProductUpdateComponent implements OnInit {
 		private authService: AuthService,
 		private productService: ProductsService,
 		private categoryService: CategoryService,
-		private global: GlobalService
+		private global: GlobalService,
+		private alert: AlertService
 	) {
 	}
 
@@ -94,7 +95,7 @@ export class ProductUpdateComponent implements OnInit {
 						}),
 						error: ((e: any) => {
 							console.log("error", e);
-							this.message = e.error.message;
+							this.alert.showAlertMessage(e.error.message);
 						})
 					})
 				} else {
@@ -106,7 +107,7 @@ export class ProductUpdateComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}

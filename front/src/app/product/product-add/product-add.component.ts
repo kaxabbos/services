@@ -7,6 +7,7 @@ import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-product-add',
@@ -28,10 +29,9 @@ export class ProductAddComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
-	file:any = null;
+	file: any = null;
 
 	categories: any[] = [];
-	message: any;
 
 	constructor(
 		private router: Router,
@@ -39,6 +39,7 @@ export class ProductAddComponent implements OnInit {
 		private productService: ProductsService,
 		private categoryService: CategoryService,
 		private global: GlobalService,
+		private alert: AlertService
 	) {
 	}
 
@@ -66,13 +67,13 @@ export class ProductAddComponent implements OnInit {
 					}),
 					error: ((e: any) => {
 						console.log("error", e);
-						this.message = e.error.message;
+						this.alert.showAlertMessage(e.error.message)
 					})
 				})
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message)
 			})
 		})
 	}
