@@ -3,6 +3,7 @@ import {RouterOutlet} from '@angular/router';
 import {FooterComponent} from "./footer/footer.component";
 import {NavComponent} from "./nav/nav.component";
 import {AuthService} from "./auth/auth.service";
+import {AlertComponent} from "./alert/alert.component";
 
 @Component({
 	selector: 'app-root',
@@ -11,6 +12,7 @@ import {AuthService} from "./auth/auth.service";
 		RouterOutlet,
 		FooterComponent,
 		NavComponent,
+		AlertComponent,
 	],
 	templateUrl: './app.component.html',
 })
